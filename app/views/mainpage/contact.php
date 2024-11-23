@@ -18,15 +18,15 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i>📍</i>
-                    <p>123 Main Street, Anytown, USA.</p>
+                    <p>Dulangan, Baco, Oriental Mindoro</p>
                 </div>
                 <div class="contact-item">
                     <i>📞</i>
-                    <p>+1 233 898 0897</p>
+                    <p>+6392222nogyan</p>
                 </div>
                 <div class="contact-item">
                     <i>✉️</i>
-                    <p>help@example.com</p>
+                    <p>aristoncordero@kupal.com</p>
                 </div>
             </div>
 
