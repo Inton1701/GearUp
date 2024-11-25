@@ -44,6 +44,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 
 $router->get('/admin', 'Dashboard::dashboard');
+$router->get('/shop', 'Mainpage::shop');
+$router->get('/contact', 'Mainpage::contact');
+$router->get('/cart', 'Mainpage::cart');
+
 $router->group('admin/products', function() use ($router){
     $router->get('', 'Products::getList');
     $router->get('add-products', 'Products::add_product');
