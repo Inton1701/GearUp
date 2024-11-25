@@ -23,7 +23,7 @@
                 <ul class="table-top-head">
                     <li>
                         <div class="page-btn">
-                            <a href="product-list.html" class="btn btn-secondary"><i data-feather="arrow-left" class="me-2"></i>Back to
+                            <a href="/admin/products" class="btn btn-secondary"><i data-feather="arrow-left" class="me-2"></i>Back to
                                 Product</a>
                         </div>
                     </li>

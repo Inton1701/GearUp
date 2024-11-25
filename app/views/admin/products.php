@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="page-btn">
-          <a href="/admin/add-products" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i>Add New Product</a>
+          <a href="/admin/products/add-products" class="btn btn-added"><i data-feather="plus-circle" class="me-2"></i>Add New Product</a>
         </div>
       </div>
       <div class="card table-list-card">
