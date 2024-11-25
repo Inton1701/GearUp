@@ -16,21 +16,21 @@ class Products extends Controller
         $this->call->view('admin/products');
     }
     // fetch products all products
-    public function list_products(){
+    public function list_products()
+    {
         $products = $this->products_model->get_products();
         if ($products) {
             echo json_encode([
                 'status' => 'success',
-                 'data' => $products
-                ]);
+                'data' => $products
+            ]);
         } else {
 
             echo json_encode([
                 'status' => 'error',
-                 'message' => 'No users found.'
-                ]);
+                'message' => 'No users found.'
+            ]);
         }
-
     }
     // add product
     public function add_product()
@@ -51,13 +51,13 @@ class Products extends Controller
             $price = $this->io->post('price');
             $quantity = $this->io->post('quantity');
             $quantity_alert = $this->io->post('quantity-alert');
-    
-     
+
+
             $upload = new Upload($_FILES['product-image']);
             $upload->set_dir('./public/userdata/img/')
                 ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
-                ->encrypt_name(); 
-    
+                ->encrypt_name();
+
 
             if ($upload->do_upload()) {
                 $image_path = $upload->get_filename();
@@ -67,7 +67,7 @@ class Products extends Controller
                 $this->call->view('admin/add_products', $data);
                 return; // Stop further execution if upload fails
             }
-    
+
             // Insert product into the database with image path
             if ($this->products_model->create_product(
                 $product_name,
@@ -86,92 +86,80 @@ class Products extends Controller
             }
         }
     }
-    public function get_product($id) {
-        $product = $this->products_model->get_one_product($id);
-        $categories = $this->products_model->get_categories();
-        $brands = $this->products_model->get_brands();
-    
-        if ($product) {
+    public function get_category($id)
+    {
+        $category = $this->category_model->get_one_category($id);
+
+        if ($category) {
             echo json_encode([
                 'status' => 'success',
-                'data' => [
-                    'product' => $product,
-                    'categories' => $categories,
-                    'brands' => $brands
-                ]
+                'data' => $category
             ]);
         } else {
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Product not found.'
+                'message' => 'Category not found'
             ]);
-
-
-                $error = $this->db->error();
-                echo json_encode([
-                'status' => 'error',
-                'message' => $error['message']
-                ]);
-            
         }
     }
-    
-    public function update_product(){
-   
-            if($this->form_validation->submitted()){
-                $product_id = $this->io->post('product_id');
-                $product_name = $this->io->post('product_name');
-                $description = $this->io->post('product_description');
-                $price = $this->io->post('price');
-                $quantity = $this->io->post('quantity');
-                $quantity_alert = $this->io->post('quantity_alert');
-                $brand = $this->io->post('brand');
-                $category = $this->io->post('category');
-                $updated_at = date('Y-m-d H:i:s');
-                
-                $upload = new Upload($_FILES['product-image']);
-                $upload->set_dir('./public/userdata/img/')
-                    ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
-                    ->encrypt_name(); 
-                
-    
-                if ($upload->do_upload()) {
-                    $image_path = $upload->get_filename();
-                } else {
-    
-                    $data['errors'] = $upload->get_errors();
-                    $this->call->view('admin/add_products', $data);
-                    return; 
-                }
-    
-                if ($this->products_model->update_products($product_id, $product_name, $description, $price, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at)) {
-                    echo json_encode([
-                        'status' => 'success',
-                         'message' => 'Product was successfully updated'
-                        ]);
-                } else {
-                    // Pass the error message to json
-                    $error = $this->db->error();
-                    echo json_encode([
+
+    public function update_product()
+    {
+
+        if ($this->form_validation->submitted()) {
+            $product_id = $this->io->post('product_id');
+            $product_name = $this->io->post('product_name');
+            $description = $this->io->post('product_description');
+            $price = $this->io->post('price');
+            $quantity = $this->io->post('quantity');
+            $quantity_alert = $this->io->post('quantity_alert');
+            $brand = $this->io->post('brand');
+            $category = $this->io->post('category');
+            $updated_at = date('Y-m-d H:i:s');
+
+            $upload = new Upload($_FILES['product-image']);
+            $upload->set_dir('./public/userdata/img/')
+                ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
+                ->encrypt_name();
+
+
+            if ($upload->do_upload()) {
+                $image_path = $upload->get_filename();
+            } else {
+
+                $data['errors'] = $upload->get_errors();
+                $this->call->view('admin/add_products', $data);
+                return;
+            }
+
+            if ($this->products_model->update_products($product_id, $product_name, $description, $price, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at)) {
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Product was successfully updated'
+                ]);
+            } else {
+                // Pass the error message to json
+                $error = $this->db->error();
+                echo json_encode([
                     'status' => 'error',
                     'message' => 'Product update failed: ' . $error['message']
-                    ]);
-                }
+                ]);
             }
+        }
     }
-    public function delete_product($id){
-        if(!$id){
+    public function delete_product($id)
+    {
+        if (!$id) {
             echo json_encode([
                 'status' => 'error',
                 'message' => 'Product not found',
             ]);
         }
-        if($this->products_model->delete_products($id)){
+        if ($this->products_model->delete_products($id)) {
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Product successfully deleted'
-        ]);
-         }
+            ]);
         }
-    
+    }
 }

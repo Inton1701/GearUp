@@ -161,14 +161,14 @@
                     >
                   </li>
                   <li>
-                    <a href="/admin/products/add"
+                    <a href="/admin/products/add-products"
                       ><i data-feather="plus-square"></i
                       ><span>Create Product</span></a
                     >
                   </li>
         
                   <li>
-                    <a href="category-list.html"
+                    <a href="/admin/category/"
                       ><i data-feather="codepen"></i><span>Category</span></a
                     >
                   </li>

@@ -50,11 +50,20 @@ $router->get('/cart', 'Mainpage::cart');
 
 $router->group('admin/products', function() use ($router) {
     $router->get('', 'Products::getList'); 
-    $router->get('add', 'Products::add_product'); 
+    $router->get('add-products', 'Products::add_product'); 
     $router->match('create', 'Products::create_product', ['POST', 'GET']); 
     $router->match('test', 'Products::test', ['POST', 'GET']); 
     $router->get('list', 'Products::list_products'); 
     $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']); 
     $router->post('update', 'Products::update_product'); 
     $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']); 
+});
+
+$router->group('admin/category', function() use ($router) {
+    $router->get('', 'Category::category'); 
+    $router->match('add', 'Category::add_category', ['POST', 'GET']); 
+    $router->get('list', 'Category::category_list'); 
+    $router->match('get/{id}', 'Category::get_category', ['POST', 'GET']); 
+    $router->post('update', 'Category::update_category'); 
+    $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']); 
 });
