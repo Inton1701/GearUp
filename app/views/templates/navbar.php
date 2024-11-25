@@ -156,12 +156,12 @@
                 <h6 class="submenu-hdr">Inventory</h6>
                 <ul>
                   <li >
-                    <a href="/admin/products"
+                    <a href="/admin/products/"
                       ><i data-feather="box"></i><span>Products</span></a
                     >
                   </li>
                   <li>
-                    <a href="/admin/add-products"
+                    <a href="/admin/products/add"
                       ><i data-feather="plus-square"></i
                       ><span>Create Product</span></a
                     >

@@ -48,12 +48,13 @@ $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/cart', 'Mainpage::cart');
 
-$router->group('admin/products', function() use ($router){
-    $router->get('', 'Products::getList');
-    $router->get('add-products', 'Products::add_product');
-    $router->match('create', 'Products::create_product',array('POST','GET'));
-    $router->match('test', 'Products::test',array('POST','GET'));
-    $router->get('products_list', 'Products::list_products');
-    $router->match('get_product/{id}', 'Products::get_product',array('POST','GET'));
-    
+$router->group('admin/products', function() use ($router) {
+    $router->get('', 'Products::getList'); 
+    $router->get('add', 'Products::add_product'); 
+    $router->match('create', 'Products::create_product', ['POST', 'GET']); 
+    $router->match('test', 'Products::test', ['POST', 'GET']); 
+    $router->get('list', 'Products::list_products'); 
+    $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']); 
+    $router->post('update', 'Products::update_product'); 
+    $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']); 
 });
