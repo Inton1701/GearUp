@@ -33,7 +33,6 @@ class Category_model extends Model {
     }
 
 
-
     public function  delete_categories($category_id){
         $data = array(
             'delete_at' => date('Y-m-d H:i:s')

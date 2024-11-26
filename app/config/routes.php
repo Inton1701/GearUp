@@ -67,3 +67,12 @@ $router->group('admin/category', function() use ($router) {
     $router->post('update', 'Category::update_category'); 
     $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']); 
 });
+
+$router->group('admin/brand', function() use ($router) {
+    $router->get('', 'Brand::brand'); 
+    $router->match('add', 'Brand::add_brand', ['POST', 'GET']); 
+    $router->get('list', 'Brand::brand_list'); 
+    $router->match('get/{id}', 'Brand::get_brand', ['POST', 'GET']); 
+    $router->post('update', 'Brand::update_brand'); 
+    $router->match('delete/{id}', 'Brand::delete_brand', ['POST', 'GET']); 
+});

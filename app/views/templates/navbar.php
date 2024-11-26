@@ -174,7 +174,7 @@
                   </li>
       
                   <li>
-                    <a href="brand-list.html"
+                    <a href="/admin/brand/"
                       ><i data-feather="tag"></i><span>Brands</span></a
                     >
                   </li>

@@ -130,7 +130,7 @@
 
   <script>
     $(document).ready(function() {
-      // Initialize DataTable and store it in the 'table' variable
+
       const table = $('#table').DataTable({
         responsive: true,
         paging: true,
@@ -142,7 +142,7 @@
       function loadProducts() {
         $.ajax({
           type: "GET",
-          url: "<?= site_url('admin/products/list') ?>", // Make sure this URL is correct
+          url: "<?= site_url('admin/products/list') ?>",
           dataType: "json",
           success: function(response) {
             if (response.status === 'success') {
@@ -151,7 +151,7 @@
               table.clear();
 
               // Iterate through the products and add rows to the DataTable
-              products.forEach(function(product) { // Fix the forEach function
+              products.forEach(function(product) { 
                 console.log(product.product_id);
                 table.row.add([
                   product.product_id,
