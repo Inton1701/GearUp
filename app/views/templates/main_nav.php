@@ -6,6 +6,7 @@
                 <a href="/home">HOME</a>
                 <a href="/shop">SHOP</a>
                 <a href="/contact">CONTACT</a>
+                <a href="/build">CUSTOM BUILD</a>
             </div>
             <div class="nav-icons">
                 <a href="#" aria-label="Search">🔍</a>

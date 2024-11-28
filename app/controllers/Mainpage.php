@@ -29,4 +29,9 @@ class Mainpage extends Controller
     {
         $this->call->view('mainpage/home');
     }
+
+    public function build()
+    {
+        $this->call->view('mainpage/build');
+    }
 }
