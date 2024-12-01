@@ -27,4 +27,3 @@
 <script src="<?= base_url(); ?>public/assets/js/dataTables.bootstrap5.min.js" type="text/javascript"></script>
 
 <script src="<?= base_url(); ?>public/assets/js/script.js" type="text/javascript"></script>
-

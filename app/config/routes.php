@@ -1,5 +1,5 @@
 <?php
-defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 /**
  * ------------------------------------------------------------------
  * LavaLust - an opensource lightweight PHP MVC Framework
@@ -47,25 +47,26 @@ $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/cart', 'Mainpage::cart');
+$router->get('/home', 'Mainpage::home');
 
-$router->group('admin/products', function() use ($router) {
-    $router->get('', 'Products::getList'); 
-    $router->get('add-products', 'Products::add_product'); 
-    $router->match('create', 'Products::create_product', ['POST', 'GET']); 
-    $router->match('test', 'Products::test', ['POST', 'GET']); 
-    $router->get('list', 'Products::list_products'); 
-    $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']); 
-    $router->post('update', 'Products::update_product'); 
-    $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']); 
+$router->group('admin/products', function () use ($router) {
+    $router->get('', 'Products::getList');
+    $router->get('add-products', 'Products::add_product');
+    $router->match('create', 'Products::create_product', ['POST', 'GET']);
+    $router->match('test', 'Products::test', ['POST', 'GET']);
+    $router->get('list', 'Products::list_products');
+    $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']);
+    $router->post('update', 'Products::update_product');
+    $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']);
 });
 
-$router->group('admin/category', function() use ($router) {
-    $router->get('', 'Category::category'); 
-    $router->match('add', 'Category::add_category', ['POST', 'GET']); 
-    $router->get('list', 'Category::category_list'); 
-    $router->match('get/{id}', 'Category::get_category', ['POST', 'GET']); 
-    $router->post('update', 'Category::update_category'); 
-    $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']); 
+$router->group('admin/category', function () use ($router) {
+    $router->get('', 'Category::category');
+    $router->match('add', 'Category::add_category', ['POST', 'GET']);
+    $router->get('list', 'Category::category_list');
+    $router->match('get/{id}', 'Category::get_category', ['POST', 'GET']);
+    $router->post('update', 'Category::update_category');
+    $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']);
 });
 
 $router->group('admin/brand', function() use ($router) {

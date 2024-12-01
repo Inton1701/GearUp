@@ -25,4 +25,8 @@ class Mainpage extends Controller
         $this->call->view('mainpage/cart');
     }
 
+    public function home()
+    {
+        $this->call->view('mainpage/home');
+    }
 }
