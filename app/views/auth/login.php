@@ -11,32 +11,30 @@
 <body>
     <main>
         <div class="container">
-            <div class="logo">Gear<span>UP</span></div>
-            <h5>Login to Your Account</h5>
+            <div class="logo fs-2">Gear<span>UP</span></div>
+            <h6>Login to Your Account</h6>
             <form action="#" method="POST">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
                 <button type="submit" class="submit-btn">Login</button>
             </form>
             <div class="forgot-password">
                 <a href="#">Forgot your password?</a>
             </div>
-            <div class="social-login">
+            <!-- <div class="social-login">
                 <p>Or login with</p>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-google"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
-            </div>
+            </div> -->
             <div class="signup-link">
-                Don't have an account? <a href="#">Sign up</a>
+                Don't have an account? <a href="/register">Sign up</a>
             </div>
         </div>
 
