@@ -20,16 +20,13 @@
                     <label for="categories" class="form-label"><b>Categories</b></label>
                     <select id="categories" class="form-select">
                         <option value="all" selected>All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="accessories">Accessories</option>
-                        <option value="gaming">Gaming</option>
-                        <option value="furniture">Furniture</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="quality" class="form-label"><b>Quality</b></label>
-                    <select id="quality" class="form-select">
-                        <option value="all" selected>All Quality Levels</option>
+                    <label for="brand" class="form-label"><b>Brand</b></label>
+                    <select id="brand" class="form-select">
+                        <option value="all" selected>All Brand</option>
+                        <option value="SAmsung">Samsung</option>
                     </select>
                 </div>
             </div>
