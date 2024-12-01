@@ -17,9 +17,13 @@
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group password-input">
                     <input type="password" id="password" name="password" placeholder="Password" required>
+                    <button type="button" class="toggle-password">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
+
                 <button type="submit" class="submit-btn">Login</button>
             </form>
             <div class="forgot-password">
@@ -40,6 +44,24 @@
 
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const togglePassword = document.querySelector(".toggle-password");
+            const passwordInput = document.getElementById("password");
+
+            togglePassword.addEventListener("click", function() {
+                // Toggle the type attribute
+                const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+                passwordInput.setAttribute("type", type);
+
+                // Toggle the icon
+                this.querySelector("i").classList.toggle("fa-eye");
+                this.querySelector("i").classList.toggle("fa-eye-slash");
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>
