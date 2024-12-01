@@ -149,7 +149,6 @@
                       ><i data-feather="grid"></i><span>Dashboard</span></a
                     >
                   </li>
-           
                 </ul>
               </li>
               <li class="submenu-open">
@@ -179,17 +178,11 @@
                     >
                   </li>
                   <li>
-                    <a href="varriant-attributes.html"
-                      ><i data-feather="layers"></i><span>Variant Attributes</span></a>
-                  </li>
-                  <li>
                     <a href="manage-stocks.html"
                       ><i data-feather="package"></i
                       ><span>Manage Stock</span></a
                     >
                   </li>
-        
-        
                 </ul>
               </li>
 
@@ -220,47 +213,11 @@
        
                 </ul>
               </li>
-   
-          
-
-              <li class="submenu-open">
-                <h6 class="submenu-hdr">Reports</h6>
-                <ul>
-                  <li>
-                    <a href="sales-report.html"
-                      ><i data-feather="bar-chart-2"></i
-                      ><span>Sales Report</span></a
-                    >
-                  </li>
-      
-                  <li>
-                    <a href="inventory-report.html"
-                      ><i data-feather="inbox"></i
-                      ><span>Inventory Report</span></a
-                    >
-                  </li>
-       
-      
-                  <li>
-                    <a href="customer-report.html"
-                      ><i data-feather="user"></i
-                      ><span>Customer Report</span></a
-                    >
-                  </li>
-        
-                  <li>
-                    <a href="profit-and-loss.html"
-                      ><i data-feather="pie-chart"></i
-                      ><span>Profit & Loss</span></a
-                    >
-                  </li>
-                </ul>
-              </li>
               <li class="submenu-open">
                 <h6 class="submenu-hdr">User Management</h6>
                 <ul>
                   <li>
-                    <a href="users.html"
+                    <a href="/admin/user/"
                       ><i data-feather="user-check"></i><span>Users</span></a
                     >
                   </li>

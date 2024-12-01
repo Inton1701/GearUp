@@ -38,6 +38,7 @@
                   <th>Category</th>
                   <th>Brand</th>
                   <th>Price</th>
+                  <th>Cost</th>
                   <th>Quantity</th>
                   <th>Solds</th>
                   <th>Returns</th>
@@ -75,58 +76,96 @@
   <!-- Edit Product Modal -->
   <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editProductForm" enctype="multipart/form-data">
-            <input type="text" id="editProductId" name="product_id">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm" enctype="multipart/form-data">
+                    <input type="hidden" id="editProductId" name="product_id">
+                    
+                    <!-- Product Name and Price -->
+                    <div class="row mb-3">
+                    <div class="col-md-6">
+                            <label for="editProductName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="editProductName" name="product_name" required>
+                    </div>
+                    <div class="col-md-6">
+                            <label for="editProductName" class="form-label">Performance</label>
+                            <select class="form-control" id="editProductPerformance" name="performance">
+                                <option value="poor"selected>Poor</option>
+                                <option value="low"> Low</option>
+                                <option value="average">Average</option>
+                                <option value="high">High</option>
+                                <option value="best">Best</option>
+                            </select>
+                    </div>
+                          </div>
 
-            <div class="mb-3">
-              <label for="editProductName" class="form-label">Product Name</label>
-              <input type="text" class="form-control" id="editProductName" name="product_name" required>
-            </div>
-            <div class="mb-3">
-              <label for="editProductDescription" class="form-label">Description</label>
-              <textarea class="form-control" id="editProductDescription" name="product_description" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="editProductPrice" class="form-label">Price</label>
-              <input type="number" class="form-control" id="editProductPrice" name="price" required>
-            </div>
-            <div class="mb-3">
-              <label for="editProductQuantity" class="form-label">Quantity</label>
-              <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
-            </div>
-            <div class="mb-3">
-              <label for="editQuantityAlert" class="form-label">Quantity Alert</label>
-              <input type="number" class="form-control" id="editQuantityAlert" name="quantity_alert" required>
-            </div>
-            <div class="mb-3">
-              <label for="editProductCategory" class="form-label">Category</label>
-              <select class="form-control" id="editProductCategory" name="category">
-                <option value="" disabled selected>Select a category</option>
-              </select>
-            </div>
 
-            <div class="mb-3">
-              <label for="editProductBrand" class="form-label">Brand</label>
-              <select class="form-control" id="editProductBrand" name="brand">
-                <option value="" disabled selected>Select a brand</option>
-              </select>
+                             <!-- Product Name and Price -->
+                             <div class="row mb-3">
+            
+                        <div class="col-md-6">
+                            <label for="editProductPrice" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="editProductPrice" name="price" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="editProductCost" class="form-label">Cost</label>
+                            <input type="number" class="form-control" id="editProductCost" name="cost" required>
+                        </div>
+               
+                    </div>
+                    
+                    <!-- Quantity and Quantity Alert -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="editProductQuantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="editProductQuantity" name="quantity" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editQuantityAlert" class="form-label">Quantity Alert</label>
+                            <input type="number" class="form-control" id="editQuantityAlert" name="quantity_alert" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Category and Brand -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="editProductCategory" class="form-label">Category</label>
+                            <select class="form-control" id="editProductCategory" name="category">
+                                <option value="" disabled selected>Select a category</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editProductBrand" class="form-label">Brand</label>
+                            <select class="form-control" id="editProductBrand" name="brand">
+                                <option value="" disabled selected>Select a brand</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="editProductDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editProductDescription" name="product_description" rows="3" required></textarea>
+                    </div>
+                    
+                    <!-- Product Image -->
+                    <div class="mb-3">
+                        <label for="editProductImage" class="form-label">Product Image</label>
+                        <input type="file" class="form-control" id="editProductImage" name="product-image" accept=".jpg,.jpeg,.png,.gif">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
             </div>
-            <div class="mb-3">
-              <label for="editProductImage" class="form-label">Product Image</label>
-              <input type="file" class="form-control" id="editProductImage" name="product-image" accept=".jpg,.jpeg,.png,.gif">
-            </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-          </form>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
 
   <script>
     $(document).ready(function() {
@@ -166,6 +205,7 @@
                   product.category_name,
                   product.brand_name,
                   product.price,
+                  product.cost,
                   product.quantity,
                   product.solds,
                   product.returns,
@@ -258,9 +298,10 @@ $(document).on('click', '.edit-icon', function () {
         $('#editProductName').val(product.product_name);
         $('#editProductDescription').val(product.product_description);
         $('#editProductPrice').val(product.price);
+        $('#editProductCost').val(product.cost);
         $('#editProductQuantity').val(product.quantity);
         $('#editQuantityAlert').val(product.quantity_alert);
-
+        $('#editProductPerformance').val(product.performance);
         // Populate categories dropdown
         const categorySelect = $('#editProductCategory');
         categorySelect.empty(); // Clear previous options

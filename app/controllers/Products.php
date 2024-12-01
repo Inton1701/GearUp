@@ -45,10 +45,12 @@ class Products extends Controller
         if ($this->form_validation->submitted()) {
 
             $product_name = $this->io->post('product-name');
+            $performance = $this->io->post('performance');
             $category = $this->io->post('category');
             $brand = $this->io->post('brand');
             $description = $this->io->post('description');
             $price = $this->io->post('price');
+            $cost = $this->io->post('cost');
             $quantity = $this->io->post('quantity');
             $quantity_alert = $this->io->post('quantity-alert');
 
@@ -73,8 +75,10 @@ class Products extends Controller
                 $product_name,
                 $category,
                 $brand,
+                $performance,
                 $description,
                 $price,
+                $cost,
                 $quantity,
                 $quantity_alert,
                 $image_path
@@ -86,6 +90,8 @@ class Products extends Controller
             }
         }
     }
+
+
     public function get_category($id)
     {
         $category = $this->category_model->get_one_category($id);
@@ -103,14 +109,39 @@ class Products extends Controller
         }
     }
 
+    public function get_product($id)
+    {
+        $product = $this->products_model->get_one_product($id);
+        $categories = $this->products_model->get_categories();
+        $brands = $this->products_model->get_brands();
+        if ($product) {
+            echo json_encode([
+                'status' => 'success',
+                'data' => [ 
+                    'product' => $product,
+                    'categories' => $categories,
+                    'brands' => $brands
+                ]
+            ]);
+        } else {
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'product not found'
+            ]);
+        }
+    }
+
+
     public function update_product()
     {
 
         if ($this->form_validation->submitted()) {
             $product_id = $this->io->post('product_id');
             $product_name = $this->io->post('product_name');
+            $performance = $this->io->post('performance');
             $description = $this->io->post('product_description');
             $price = $this->io->post('price');
+            $cost = $this->io->post('cost');
             $quantity = $this->io->post('quantity');
             $quantity_alert = $this->io->post('quantity_alert');
             $brand = $this->io->post('brand');
@@ -132,7 +163,7 @@ class Products extends Controller
                 return;
             }
 
-            if ($this->products_model->update_products($product_id, $product_name, $description, $price, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at)) {
+            if ($this->products_model->update_products($product_id, $product_name, $performance,$description, $price,$cost, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at)) {
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'Product was successfully updated'

@@ -90,10 +90,24 @@
 
                                                     </div>
                                                     <select class="select" name="brand">
-                                                    <option value="1" selected>None</option>
+                                                        <option value="1" selected>None</option>
                                                         <?php foreach ($brands as $brand): ?>
                                                             <option value="<?php echo $brand['brand_id'] ?>"><?php echo $brand['brand_name']; ?></option>
                                                         <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <div class="mb-3 add-product">
+                                                    <div class="add-newplus">
+                                                        <label class="form-label">Performance</label>
+                                                    </div>
+                                                    <select class="form-control" name="performance">
+                                                        <option value="poor" selected>Poor</option>
+                                                        <option value="low"> Low</option>
+                                                        <option value="average">Average</option>
+                                                        <option value="high">High</option>
+                                                        <option value="best">Best</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -153,19 +167,25 @@
                                                     <div class="col-lg-4 col-sm-6 col-12">
                                                         <div class="input-blocks add-product">
                                                             <label>Price</label>
-                                                            <input type="number" class="form-control" placeholder="0.00" name="price" required/>
+                                                            <input type="number" class="form-control" placeholder="0.00" name="price" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-6 col-12">
+                                                        <div class="input-blocks add-product">
+                                                            <label>Cost</label>
+                                                            <input type="number" class="form-control" placeholder="0.00" name="cost" required />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-6 col-12">
                                                         <div class="input-blocks add-product">
                                                             <label>Quantity</label>
-                                                            <input type="number" class="form-control"  placeholder="0" name="quantity"/>
+                                                            <input type="number" class="form-control" placeholder="0" name="quantity" />
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-6 col-12">
                                                         <div class="input-blocks add-product">
                                                             <label>Quantity Alert</label>
-                                                            <input type="text" class="form-control" placeholder="0" name="quantity-alert"/>
+                                                            <input type="text" class="form-control" placeholder="0" name="quantity-alert" />
                                                         </div>
                                                     </div>
 
@@ -213,7 +233,7 @@
                                                                             </div>
                                                                             <div class="phone-img">
                                                                                 <!-- Default image, which will be replaced with the selected image -->
-                                                                                <img id="imagePreview" src="<?= base_url();?>/public/userdata/img/no-image.png" alt="" />
+                                                                                <img id="imagePreview" src="<?= base_url(); ?>/public/userdata/img/no-image.png" alt="" />
                                                                                 <a href="javascript:void(0);" id="removeImage" style="display: none;">
                                                                                     <i data-feather="x" class="x-square-add remove-product"></i>
                                                                                 </a>
@@ -253,13 +273,13 @@
     <?php include APP_DIR . 'views/templates/footer.php'; ?>
     <script>
         $(document).ready(function() {
-     
+
             $('#imageUpload').change(function(event) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-  
+
                     $('#imagePreview').attr('src', e.target.result);
-    
+
                     $('#removeImage').show();
                 };
 
@@ -270,7 +290,7 @@
             $('#removeImage').click(function() {
                 $('#imagePreview').attr('src', '');
                 $('#removeImage').hide();
-                $('#imageUpload').val(''); 
+                $('#imageUpload').val('');
             });
         });
     </script>

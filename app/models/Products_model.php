@@ -22,13 +22,15 @@ class Products_model extends Model {
     public function get_brands(){
         return $this->db->table('brand')->get_all();
     }
-    public function create_product($product_name, $category, $brand, $description, $price, $quantity, $quantity_alert, $image_path){
+    public function create_product($product_name, $category, $brand, $performance, $description, $price,$cost, $quantity,  $quantity_alert, $image_path){
         $data = array(
             'product_name' => $product_name,
             'category_id' => $category,
             'brand_id' => $brand,
+            'performance' => $performance,
             'description' => $description,
             'price' => $price,
+            'cost' => $cost,
             'quantity' => $quantity,
             'quantity_alert' => $quantity_alert,
             'image_path' => $image_path,
@@ -36,11 +38,13 @@ class Products_model extends Model {
         );
         return $this->db->table('products')->insert($data);
     }
-    public function  update_products($product_id, $product_name, $description, $price, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at){
+    public function  update_products($product_id, $product_name,$performance, $description, $price, $cost, $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at){
         $data = array(
             'product_name' => $product_name,
+            'performance' => $performance,
             'description' => $description,
             'price' => $price,
+            'cost' => $cost,
             'quantity' => $quantity,
             'quantity_alert' => $quantity_alert,
             'brand_id' => $brand,

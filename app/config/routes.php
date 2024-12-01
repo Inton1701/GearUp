@@ -77,3 +77,12 @@ $router->group('admin/brand', function() use ($router) {
     $router->post('update', 'Brand::update_brand'); 
     $router->match('delete/{id}', 'Brand::delete_brand', ['POST', 'GET']); 
 });
+
+$router->group('admin/user', function() use ($router) {
+    $router->get('', 'User::user'); 
+    $router->match('add', 'User::add_user', ['POST', 'GET']); 
+    $router->get('list', 'User::user_list'); 
+    $router->match('get/{id}', 'User::get_user', ['POST', 'GET']); 
+    $router->post('update', 'User::update_user'); 
+    $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']); 
+});
