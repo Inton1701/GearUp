@@ -30,12 +30,12 @@
                 <div class="col-5">
                     <h4 class="mb-4">Select your Components</h4>
                     <div class="list-group overflow-auto" style="max-height: 400px;">
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="processor">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-cpu me-3"></i>
-                                <h6 class="mb-0">Processor</h6>
-                            </div>
-                        </button>
+                    <button id="processorButton" class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="processor" data-original-icon="bi bi-cpu" data-original-label="Processor">
+    <div class="d-flex align-items-center">
+        <i class="bi bi-cpu me-3"></i>
+        <h6 class="mb-0">Processor</h6>
+    </div>
+</button>
                         <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="cpu-cooler">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-fan me-3"></i>
@@ -124,6 +124,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="card bg-dark text-white border-secondary mb-3" data-component="processor">
+    <div class="card-header bg-success text-white">Sale</div>
+    <div class="card-body">
+        <div class="d-flex gap-3">
+            <img src="images/intel-i7.jpg" alt="Intel i7" class="rounded" style="width: 80px; height: 80px;">
+            <div class="flex-grow-1">
+                <h6 class="card-title">Intel Core i7 12700K</h6>
+                <p class="card-text mb-2">Powerful processor for high performance.</p>
+                <p class="card-text"><small class="text-muted">3.6 GHz - 5.0 GHz</small></p>
+            </div>
+            <div class="text-end">
+                <h5 class="mb-2">P23,999.00</h5>
+                <button class="btn btn-outline-success btn-sm">SELECT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
                         <!-- Sample Product 2 -->
                         <div class="card bg-dark text-white border-secondary mb-3" data-component="graphics-card">
@@ -236,6 +255,20 @@
 
             $('.list-group-item-action').on('click', function() {
                 const selectedComponent = $(this).data('component');
+                const button = $(this);
+        const originalIcon = button.data('original-icon');
+        const originalLabel = button.data('original-label');
+
+        // Check if the button is already in its updated state
+        if (!button.hasClass('bg-dark')) {
+            // Revert to original state
+            button.html(`
+                <div class="d-flex align-items-center">
+                    <i class="${originalIcon} me-3"></i>
+                    <h6 class="mb-0">${originalLabel}</h6>
+                </div>
+            `).removeClass('bg-success text-dark').addClass('bg-dark text-white');
+        }
 
                 // Update heading based on clicked component
                 const headingMap = {
@@ -258,7 +291,39 @@
                     product.toggle(cardComponent === selectedComponent || selectedComponent === 'all');
                 });
             });
+            $('#productList').on('click', '.btn-outline-success', function () {
+        const card = $(this).closest('.card'); // Get the selected card
+        const component = card.data('component'); // Get the component type
+        const imageSrc = card.find('img').attr('src'); // Get the product's image URL
+        const productName = card.find('.card-title').text(); // Get the product's name
+
+        // Map component type to corresponding button ID
+        const buttonMap = {
+            processor: '#processorButton',
+            'cpu-cooler': '#cpuCoolerButton',
+            motherboard: '#motherboardButton',
+            'graphics-card': '#graphicsCardButton',
+            'storage-drive': '#storageDriveButton',
+            ram: '#ramButton',
+            'power-supply': '#powerSupplyButton',
+            case: '#caseButton',
+        };
+
+        const buttonId = buttonMap[component];
+        if (buttonId) {
+            const button = $(buttonId);
+
+            // Update the button's content
+            button.html(`
+                <div class="d-flex align-items-center">
+                    <img src="${imageSrc}" alt="${productName}" class="me-3" style="width: 30px; height: 30px; border-radius: 50%;">
+                    <h6 class="mb-0">${productName}</h6>
+                </div>
+            `).removeClass('bg-dark text-white').addClass('bg-success text-dark'); // Update button styling
+        }
+    });
         });
+        
     </script>
 </body>
 
