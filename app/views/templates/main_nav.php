@@ -10,7 +10,7 @@
             </div>
             <div class="nav-icons">
                 <a href="#" aria-label="Search">🔍</a>
-                <a href="#" aria-label="User account">👤</a>
+                <a href="/profile" aria-label="User account">👤</a>
                 <a href="/cart" aria-label="Shopping cart">🛒</a>
             </div>
         </nav>
