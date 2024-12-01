@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
-    <link rel="stylesheet" href="<?= base_url(); ?>public/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/home.css" />
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -21,36 +22,8 @@
                             <!-- Title -->
                             <h6 class="card-title text-center mb-3 text-uppercase fw-bold" style="font-size: 14px;">Build Category</h6>
 
-                            <!-- Pentagon Chart -->
-                            <div class="pentagon-chart mb-3">
-                                <svg viewBox="0 0 100 100" style="width: 100%; height: auto; max-width: ;">
-                                    <!-- Pentagon shape -->
-                                    <path d="M50 10 L90 40 L80 90 L20 90 L10 40 Z" fill="none" stroke="white" stroke-width="0.5" />
-
-                                    <!-- Labels -->
-                                    <text x="50" y="14" text-anchor="middle" fill="white" style="font-size: 7px;">Computing</text>
-                                    <text x="95" y="40" text-anchor="start" fill="white" style="font-size: 7px;">Rendering</text>
-                                    <text x="83" y="92" text-anchor="end" fill="white" style="font-size: 7px;">Data Transfer</text>
-                                    <text x="18" y="92" text-anchor="start" fill="white" style="font-size: 7px;">Power Capacity</text>
-                                    <text x="5" y="40" text-anchor="end" fill="white" style="font-size: 7px;">Data Storage</text>
-                                </svg>
-                            </div>
-
-                            <!-- Example Static Data -->
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item bg-black text-white py-2">
-                                    <small>Category:</small> <strong>Gaming Build</strong>
-                                </li>
-                                <li class="list-group-item bg-black text-white py-2">
-                                    <small>Performance:</small> <strong>High</strong>
-                                </li>
-                                <li class="list-group-item bg-black text-white py-2">
-                                    <small>Budget:</small> <strong>Mid-range</strong>
-                                </li>
-                                <li class="list-group-item bg-black text-white py-2">
-                                    <small>Purpose:</small> <strong>Rendering & Gaming</strong>
-                                </li>
-                            </ul>
+                            <!-- Radar Chart -->
+                            <canvas id="radarChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -62,7 +35,7 @@
                     <h4 class="mb-4">Select your Components</h4>
                     <div class="list-group overflow-auto" style="max-height: 400px;">
                         <!-- Component Items -->
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-cpu me-3"></i>
                                 <div>
@@ -70,7 +43,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-fan me-3"></i>
                                 <div>
@@ -78,7 +51,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-motherboard me-3"></i>
                                 <div>
@@ -86,7 +59,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-gpu-card me-3"></i>
                                 <div>
@@ -94,23 +67,23 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-hard-drive me-3"></i>
+                                <i class="bi bi-device-hdd me-3"></i>
                                 <div>
                                     <h6 class="mb-0">Storage Drive</h6>
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
-                                <i class="bi bi-ram me-3"></i>
+                                <i class="bi bi-memory me-3"></i>
                                 <div>
                                     <h6 class="mb-0">RAM</h6>
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-power me-3"></i>
                                 <div>
@@ -118,7 +91,7 @@
                                 </div>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white border-secondary mb-3 p-3 rounded-2">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-pc me-3"></i>
                                 <div>
@@ -152,7 +125,7 @@
                     </div>
 
                     <!-- Scrollable Product Cards -->
-                    <div class="overflow-auto" style="max-height: 420px;">
+                    <div class="overflow-auto" style="max-height: 320px;">
                         <!-- Product Card Template -->
                         <div class="card bg-dark text-white border-secondary mb-3">
                             <div class="card-header bg-success text-white">Sale</div>
@@ -216,6 +189,43 @@
             </div>
         </div>
     </main>
+    <!-- ikaw na maglipat nari -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Performance', 'Budget', 'Upgradability', 'Aesthetics', 'Cooling Efficiency'],
+                datasets: [{
+                    label: 'Gaming Build',
+                    data: [90, 70, 85, 75, 80],
+                    fill: true,
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    borderColor: 'rgba(76, 175, 80, 1)',
+                    pointBackgroundColor: 'rgba(76, 175, 80, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    },
+                }
+            }
+        });
+    </script>
 
     <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <script src="<?= base_url(); ?>public/assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>

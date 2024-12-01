@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/cart.css" />
 </head>
+
 <body>
-<?php include APP_DIR.'views/templates/main_nav.php';?>
-<main>
+    <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
+    <main>
         <div class="container">
             <h1>Your Shopping Cart</h1>
             <div class="breadcrumb">
@@ -137,4 +139,5 @@
         </div>
     </main>
 </body>
+
 </html>

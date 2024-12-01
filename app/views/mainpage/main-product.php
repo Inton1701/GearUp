@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
-    <link rel="stylesheet" href="<?= base_url(); ?>public/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/mainpage.css" />
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
 </head>
 
 <body>
