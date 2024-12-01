@@ -184,8 +184,19 @@ h1 {
 }
 
 .continue-shopping {
-    background-color: #fff;
-    color: #000;
+    display: inline-block; /* Makes it behave like a button */
+    padding: 10px 20px; /* Add padding similar to a button */
+    background-color: #4caf50; /* Set the background color */
+    color: #000; /* Text color */
+    text-align: center; /* Center-align the text */
+    text-decoration: none; /* Remove the underline of the link */
+    border: 1px solid #000; /* Add a border to mimic a button */
+    border-radius: 4px; /* Optional: Add rounded corners */
+    cursor: pointer; /* Show pointer on hover */
+}
+
+.continue-shopping:hover {
+    background-color: #f0f0f0; /* Optional: Add hover effect */
 }
 
 .cart-totals {

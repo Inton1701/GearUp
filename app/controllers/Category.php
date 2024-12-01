@@ -116,4 +116,29 @@ class Category extends Controller
 
          }
         }
-}
+
+        public function get_products_by_category($categoryId) {
+            if (!is_numeric($categoryId)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Invalid category ID'
+                ]);
+                return;
+            }
+        
+            $products = $this->category_model->get_products_by_category($categoryId);
+        
+            if ($products) {
+                echo json_encode([
+                    'status' => 'success',
+                    'data' => $products
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'No products found for this category.'
+                ]);
+            }
+        }
+        
+    }

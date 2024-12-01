@@ -68,4 +68,6 @@ $router->group('admin/category', function () use ($router) {
     $router->match('get/{id}', 'Category::get_category', ['POST', 'GET']);
     $router->post('update', 'Category::update_category');
     $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']);
+    $router->get('products/{id}', 'Category::get_products_by_category');
+
 });

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/cart.css" />
+    <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -125,7 +126,8 @@
 
             <div class="cart-actions">
                 <button class="update-cart">Update Cart</button>
-                <button class="continue-shopping">Continue Shopping</button>
+                <a href="/shop" class="continue-shopping">Continue Shopping</a>
+
             </div>
 
             <div class="cart-totals">
