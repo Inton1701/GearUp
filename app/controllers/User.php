@@ -85,14 +85,13 @@ class User extends Controller
 
         }
     }
-    public function get_category($id)
+    public function get_user($id)
     {
-        $category = $this->category_model->get_one_category($id);
-
-        if ($category) {
+       $user = $this->user_model->get_one_user($id);
+        if ($user) {
             echo json_encode([
                 'status' => 'success',
-                'data' => $category
+                'data' => $user
             ]);
         } else {
             echo json_encode([
@@ -106,52 +105,29 @@ class User extends Controller
     {
 
         if ($this->form_validation->submitted()) {
-            $product_id = $this->io->post('product_id');
-            $product_name = $this->io->post('product_name');
-            $description = $this->io->post('product_description');
-            $price = $this->io->post('price');
-            $quantity = $this->io->post('quantity');
-            $quantity_alert = $this->io->post('quantity_alert');
-            $brand = $this->io->post('brand');
-            $category = $this->io->post('category');
-            $updated_at = date('Y-m-d H:i:s');
-
-            $upload = new Upload($_FILES['product-image']);
-            $upload->set_dir('./public/userdata/img/')
-                ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
-                ->encrypt_name();
-
-
-            if ($upload->do_upload()) {
-                $image_path = $upload->get_filename();
-            } else {
-
-                $data['errors'] = $upload->get_errors();
-                $this->call->view('admin/add_users', $data);
-                return;
-            }
-
-            if ($this->users_model->update_users(
-                $product_id,
-                $product_name,
-                $description,
-                $price,
-                 $quantity, $quantity_alert, $brand, $category, $image_path, $updated_at)) {
+            $user_id = $this->io->post('user_id');
+           $role = $this->io->post('user_role');
+           $status = $this->io->post('user_status');
+            if ($this->user_model->update_users(
+                    $user_id,
+                    $role,
+                    $status                
+                )) {
                 echo json_encode([
                     'status' => 'success',
-                    'message' => 'Product was successfully updated'
+                    'message' => 'User was successfully updated'
                 ]);
             } else {
                 // Pass the error message to json
                 $error = $this->db->error();
                 echo json_encode([
                     'status' => 'error',
-                    'message' => 'Product update failed: ' . $error['message']
+                    'message' => 'User update failed: ' . $error['message']
                 ]);
             }
         }
     }
-    public function delete_product($id)
+    public function delete_user($id)
     {
         if (!$id) {
             echo json_encode([
@@ -159,10 +135,10 @@ class User extends Controller
                 'message' => 'Product not found',
             ]);
         }
-        if ($this->users_model->delete_users($id)) {
+        if ($this->user_model->delete_users($id)) {
             echo json_encode([
                 'status' => 'success',
-                'message' => 'Product successfully deleted'
+                'message' => 'User successfully deleted'
             ]);
         }
     }
