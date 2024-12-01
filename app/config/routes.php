@@ -42,13 +42,17 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 |
 |
 */
-
+$router->get('/', 'Auth::Login');
+$router->get('/login', 'Auth::Login');
+$router->get('/register', 'Auth::Register');
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/cart', 'Mainpage::cart');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
+$router->get('/profile', 'Mainpage::profile');
+
 
 $router->group('admin/products', function () use ($router) {
     $router->get('', 'Products::getList');
