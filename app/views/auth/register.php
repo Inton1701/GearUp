@@ -18,7 +18,7 @@
                     <div class="avatar-placeholder">
                         <span>Profile Photo</span>
                     </div>
-                    <button type="button" class="change-image-btn">Change Image</button>
+                    <button type="button" class="change-image-btn">Select</button>
                 </div>
                 <div class="form-row">
                     <div class="form-group">

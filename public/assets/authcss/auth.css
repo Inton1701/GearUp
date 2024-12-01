@@ -233,12 +233,14 @@
             background-color: #4CAF50;
             color: #000;
             border: none;
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
             transition: background-color 0.3s;
+            font-size: 12px;
         }
+
 
         .change-image-btn:hover {
             background-color: #45a049;

@@ -28,7 +28,6 @@
                             <div class="carousel-caption d-flex flex-column align-items-start justify-content-start">
                                 <h1><b>RECENT RELEASE</b></h1>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, beatae laborum! Veritatis, provident tempora. Maxime dolore fugit voluptate adipisci nostrum architecto, et rerum ad sapiente amet! Mollitia eaque sed laudantium.</p>
-                                <button type="button" class="btn btn-primary">Learn More</button>
                             </div>
                         </div>
                         <div class="carousel-item">
@@ -38,7 +37,6 @@
                             <div class="carousel-caption d-flex flex-column align-items-start justify-content-start">
                                 <h1><b>UPCOMING DESIGN</b></h1>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, beatae laborum! Veritatis, provident tempora. Maxime dolore fugit voluptate adipisci nostrum architecto, et rerum ad sapiente amet! Mollitia eaque sed laudantium.</p>
-                                <button type="button" class="btn btn-primary">Learn More</button>
                             </div>
                         </div>
                     </div>

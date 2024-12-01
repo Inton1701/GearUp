@@ -123,21 +123,24 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="cart-actions">
-                <button class="update-cart">Update Cart</button>
-                <a href="/shop" class="continue-shopping">Continue Shopping</a>
-
-            </div>
-
-            <div class="cart-totals">
-                <h2>Cart Totals</h2>
-                <div class="total-row">
-                    <span>Total</span>
-                    <span>$265.00</span>
+            <div class="checkout-bar">
+                <div class="shipping-info">
+                    <span class="shipping-label">Shipping</span>
+                    <span class="shipping-method">Standard Delivery</span>
                 </div>
-                <button class="checkout-btn">Proceed to Checkout</button>
+                <div class="subtotal-section">
+                    <span class="subtotal">Subtotal: ₱0.00</span>
+                    <span class="payment-info">
+                        Available payment methods
+                        <a href="#">Learn More</a>
+                    </span>
+                </div>
+                <button class="add-to-cart-btn">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    CHECKOUT
+                </button>
             </div>
+
         </div>
     </main>
 </body>

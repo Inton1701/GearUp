@@ -18,13 +18,13 @@
             <div class="row mt-3 justify-content-end">
                 <div class="col-md-2">
                     <label for="categories" class="form-label"><b>Categories</b></label>
-                    <select id="categories" class="form-select">
+                    <select id="categories" class="form-select form-select form-select-sm bg-dark text-white border-secondary">
                         <option value="all" selected>All Categories</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="brand" class="form-label"><b>Brand</b></label>
-                    <select id="brand" class="form-select">
+                    <select id="brand" class="form-select form-select form-select-sm bg-dark text-white border-secondary">
                         <option value="all" selected>All Brand</option>
                         <option value="SAmsung">Samsung</option>
                     </select>
@@ -33,7 +33,7 @@
 
             <!-- Product Grid -->
             <div id="product-grid" class="row mt-4">
-    <!-- Filtered products will be dynamically loaded here -->
+                <!-- Filtered products will be dynamically loaded here -->
             </div>
 
 
@@ -52,25 +52,25 @@
 </body>
 
 <script>
-   function loadProducts() {
-    $.ajax({
-        type: "GET",
-        url: "<?= site_url('admin/products/list') ?>",
-        dataType: "json",
-        success: function(response) {
-            console.log("Response:", response); // Debugging the response
+    function loadProducts() {
+        $.ajax({
+            type: "GET",
+            url: "<?= site_url('admin/products/list') ?>",
+            dataType: "json",
+            success: function(response) {
+                console.log("Response:", response); // Debugging the response
 
-            if (response.status === 'success' && response.data.length > 0) {
-                const products = response.data;
-                const productContainer = $('#product-grid'); // Select the grid container
-                productContainer.empty(); // Clear previous content
+                if (response.status === 'success' && response.data.length > 0) {
+                    const products = response.data;
+                    const productContainer = $('#product-grid'); // Select the grid container
+                    productContainer.empty(); // Clear previous content
 
-                // Iterate through products and generate cards
-                products.forEach(function(product) {
-                    const price = parseFloat(product.price);
-                    const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2);
+                    // Iterate through products and generate cards
+                    products.forEach(function(product) {
+                        const price = parseFloat(product.price);
+                        const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2);
 
-                    const productCard = `
+                        const productCard = `
                         <div class="col-md-4 col-lg-3 mt-3">
                             <div class="product-card h-100">
                                 <div class="product-image">
@@ -91,86 +91,86 @@
                             </div>
                         </div>
                     `;
-                    productContainer.append(productCard);
-                });
+                        productContainer.append(productCard);
+                    });
 
-            } else {
-                $('#product-grid').html('<p class="text-center">No products available.</p>');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", xhr.responseText);
-            Swal.fire('Error', 'An error occurred while loading products.', 'error');
-        }
-    });
-}
-
-
-function loadCategories() {
-    $.ajax({
-        url: '/admin/category/list',
-        type: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            console.log("Categories Response:", response); // Debugging the response
-
-            if (response.status === 'success' && response.data.length > 0) {
-                const categories = response.data;
-                const categoryDropdown = $('#categories'); // Select the dropdown
-                categoryDropdown.empty(); // Clear previous options
-                categoryDropdown.append('<option value="all" selected>All Categories</option>'); // Add default option
-
-                // Iterate through categories and add options
-                categories.forEach(function(category) {
-                    const option = `<option value="${category.category_id}">${category.category_name}</option>`;
-                    categoryDropdown.append(option);
-                });
-            } else {
-                console.warn('No categories found.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error fetching categories:', xhr.responseText);
-        }
-    });
-
-    $('#categories').change(function() {
-    const categoryId = $(this).val();
-
-    // Trigger AJAX call to fetch products
-    if (categoryId === 'all') {
-        loadProducts(); // Reload all products
-    } else {
-        $.ajax({
-            url: `/admin/category/products/${categoryId}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    renderProducts(response.data);
                 } else {
-                    $('#product-grid').html('<p class="text-center">No products found for this category.</p>');
+                    $('#product-grid').html('<p class="text-center">No products available.</p>');
                 }
             },
-            error: function(xhr) {
-                console.error('Error fetching products:', xhr.responseText);
-                $('#product-grid').html('<p class="text-center">An error occurred.</p>');
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", xhr.responseText);
+                Swal.fire('Error', 'An error occurred while loading products.', 'error');
             }
         });
     }
-});
-}
 
-function renderProducts(products) {
-    const productContainer = $('#product-grid');
-    productContainer.empty(); // Clear previous content
 
-    if (products.length > 0) {
-        products.forEach(product => {
-            const price = parseFloat(product.price);
-            const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2); // Calculate formattedPrice here
+    function loadCategories() {
+        $.ajax({
+            url: '/admin/category/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                console.log("Categories Response:", response); // Debugging the response
 
-            const productCard = `
+                if (response.status === 'success' && response.data.length > 0) {
+                    const categories = response.data;
+                    const categoryDropdown = $('#categories'); // Select the dropdown
+                    categoryDropdown.empty(); // Clear previous options
+                    categoryDropdown.append('<option value="all" selected>All Categories</option>'); // Add default option
+
+                    // Iterate through categories and add options
+                    categories.forEach(function(category) {
+                        const option = `<option value="${category.category_id}">${category.category_name}</option>`;
+                        categoryDropdown.append(option);
+                    });
+                } else {
+                    console.warn('No categories found.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching categories:', xhr.responseText);
+            }
+        });
+
+        $('#categories').change(function() {
+            const categoryId = $(this).val();
+
+            // Trigger AJAX call to fetch products
+            if (categoryId === 'all') {
+                loadProducts(); // Reload all products
+            } else {
+                $.ajax({
+                    url: `/admin/category/products/${categoryId}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            renderProducts(response.data);
+                        } else {
+                            $('#product-grid').html('<p class="text-center">No products found for this category.</p>');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching products:', xhr.responseText);
+                        $('#product-grid').html('<p class="text-center">An error occurred.</p>');
+                    }
+                });
+            }
+        });
+    }
+
+    function renderProducts(products) {
+        const productContainer = $('#product-grid');
+        productContainer.empty(); // Clear previous content
+
+        if (products.length > 0) {
+            products.forEach(product => {
+                const price = parseFloat(product.price);
+                const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2); // Calculate formattedPrice here
+
+                const productCard = `
                 <div class="col-md-4 col-lg-3 mt-3">
                     <div class="product-card h-100">
                         <div class="product-image">
@@ -191,26 +191,25 @@ function renderProducts(products) {
                     </div>
                 </div>
             `;
-            productContainer.append(productCard);
-        });
-    } else {
-        productContainer.html('<p class="text-center">No products available.</p>');
+                productContainer.append(productCard);
+            });
+        } else {
+            productContainer.html('<p class="text-center">No products available.</p>');
+        }
     }
-}
 
 
 
 
-// Call this function on page load
-$(document).ready(function() {
-    loadCategories();
-});
+    // Call this function on page load
+    $(document).ready(function() {
+        loadCategories();
+    });
 
-// Call the function to load products
-$(document).ready(function() {
-    loadProducts();
-});
-
+    // Call the function to load products
+    $(document).ready(function() {
+        loadProducts();
+    });
 </script>
 
 </html>

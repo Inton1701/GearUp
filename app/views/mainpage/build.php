@@ -23,7 +23,9 @@
                             <h6 class="card-title text-center mb-3 text-uppercase fw-bold" style="font-size: 14px;">Build Category</h6>
 
                             <!-- Radar Chart -->
-                            <canvas id="radarChart"></canvas>
+                            <div class="border border-secondary border-1 rounded p-3">
+                                <canvas id="radarChart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -185,7 +187,23 @@
                         <!-- Add more cards as needed -->
                     </div>
                 </div>
-
+            </div>
+            <div class="checkout-bar">
+                <div class="shipping-info">
+                    <span class="shipping-label">Shipping</span>
+                    <span class="shipping-method">Standard Delivery</span>
+                </div>
+                <div class="subtotal-section">
+                    <span class="subtotal">Subtotal: ₱0.00</span>
+                    <span class="payment-info">
+                        Available payment methods
+                        <a href="#">Learn More</a>
+                    </span>
+                </div>
+                <button class="add-to-cart-btn">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    ADD TO CART
+                </button>
             </div>
         </div>
     </main>
