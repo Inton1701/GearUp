@@ -5,11 +5,12 @@
             <div class="nav-links">
                 <a href="/home">HOME</a>
                 <a href="/shop">SHOP</a>
+                <a href="/build">CUSTOM BUILD</a>
                 <a href="/contact">CONTACT</a>
             </div>
             <div class="nav-icons">
-                <a href="#" aria-label="Search">🔍</a>
-                <a href="#" aria-label="User account">👤</a>
+                <!-- <a href="#" aria-label="Search">🔍</a> -->
+                <a href="/profile" aria-label="User account">👤</a>
                 <a href="/cart" aria-label="Shopping cart">🛒</a>
             </div>
         </nav>

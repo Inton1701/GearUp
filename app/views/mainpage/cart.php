@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/cart.css" />
+    <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 </head>
+
 <body>
-<?php include APP_DIR.'views/templates/main_nav.php';?>
-<main>
+    <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
+    <main>
         <div class="container">
             <h1>Your Shopping Cart</h1>
             <div class="breadcrumb">
@@ -120,21 +123,26 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="cart-actions">
-                <button class="update-cart">Update Cart</button>
-                <button class="continue-shopping">Continue Shopping</button>
-            </div>
-
-            <div class="cart-totals">
-                <h2>Cart Totals</h2>
-                <div class="total-row">
-                    <span>Total</span>
-                    <span>$265.00</span>
+            <div class="checkout-bar">
+                <div class="shipping-info">
+                    <span class="shipping-label">Shipping</span>
+                    <span class="shipping-method">Standard Delivery</span>
                 </div>
-                <button class="checkout-btn">Proceed to Checkout</button>
+                <div class="subtotal-section">
+                    <span class="subtotal">Subtotal: ₱0.00</span>
+                    <span class="payment-info">
+                        Available payment methods
+                        <a href="#">Learn More</a>
+                    </span>
+                </div>
+                <button class="add-to-cart-btn">
+                    <i class="fas fa-shopping-cart cart-icon"></i>
+                    CHECKOUT
+                </button>
             </div>
+
         </div>
     </main>
 </body>
+
 </html>

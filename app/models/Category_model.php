@@ -42,7 +42,16 @@ class Category_model extends Model {
 
     }
 
-
-
+    public function get_products_by_category($category_id) {
+        // Validate category_id
+        if (!is_numeric($category_id)) {
+            return []; // Return empty if invalid
+        }
+    
+        // Fetch products
+        return $this->db->table('products')
+                        ->where('category_id', $category_id)
+                        ->get_all(); // Ensure 'get_all()' is used for multiple rows
+    }
 }   
 ?>

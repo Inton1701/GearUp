@@ -5,63 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
-    <link rel="stylesheet" href="<?= base_url(); ?>public/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/home.css" />
-
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
 </head>
 
 <body>
     <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
     <main>
-        <div class="container">
-            <div class="proj-body container mb-3">
+        <div class="cont">
+            <div class="proj-body container-fluid mb-3 p-0">
                 <div id="carouselExampleIndicators" class="carousel slide car-slide" data-bs-ride="carousel">
                     <ol class="carousel-indicators border-0">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </ol>
 
-                    <div class="carousel-inner container">
+                    <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="img-con">
-                                <div class="photo">
-                                    <img src="https://placehold.co/1200x500" alt="project 1" class="d-block img-fluid">
-                                </div>
+                                <img src="https://placehold.co/1920x700" alt="project 1" class="d-block w-100 h-100 img-fluid">
                             </div>
                             <div class="carousel-caption d-flex flex-column align-items-start justify-content-start">
                                 <h1><b>RECENT RELEASE</b></h1>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, beatae laborum! Veritatis, provident tempora. Maxime dolore fugit voluptate adipisci nostrum architecto, et rerum ad sapiente amet! Mollitia eaque sed laudantium.</p>
-                                <button type="button" class="btn">Learn More</button> <!--TODO:show full details of post-->
                             </div>
                         </div>
                         <div class="carousel-item">
                             <div class="img-con">
-                                <div class="photo">
-                                    <img src="https://placehold.co/1200x500" alt="project 2" s class="d-block img-fluid">
-                                </div>
+                                <img src="https://placehold.co/1920x700" alt="project 2" class="d-block w-100 h-100 img-fluid">
                             </div>
                             <div class="carousel-caption d-flex flex-column align-items-start justify-content-start">
                                 <h1><b>UPCOMING DESIGN</b></h1>
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, beatae laborum! Veritatis, provident tempora. Maxime dolore fugit voluptate adipisci nostrum architecto, et rerum ad sapiente amet! Mollitia eaque sed laudantium.</p>
-                                <button type="button" class="btn">Learn More</button> <!--TODO:show full details of ads-->
                             </div>
                         </div>
+                    </div>
 
-                    </div>
-                    <div class="carbut">
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
+        </div>
 
+
+        <div class="container">
             <h2 class="fs-3 m-2 mt-5">Categories</h2>
             <hr>
 

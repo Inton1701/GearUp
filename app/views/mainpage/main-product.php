@@ -1,96 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
-    <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/mainpage.css" />
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
+    <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
 </head>
+
 <body>
-<?php include APP_DIR.'views/templates/main_nav.php';?>
+    <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
     <main>
         <div class="container">
-            <h1>Products</h1>
-            <div class="breadcrumb">
-                <a href="#">Home</a> / <span class="active">Products</span>
-            </div>
+            <h1><b>Products</b></h1>
 
-            <div class="product-grid">
-                <!-- Product cards (6 shown for brevity, but you can add more) -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="AeroBoost Laptop Stand">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <div class="product-details">
-                        <h2 class="product-title">AeroBoost Laptop Stand</h2>
-                        <p class="product-price">$79.00</p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
+            <div class="row mt-3 justify-content-end">
+                <div class="col-md-2">
+                    <label for="categories" class="form-label"><b>Categories</b></label>
+                    <select id="categories" class="form-select form-select form-select-sm bg-dark text-white border-secondary">
+                        <option value="all" selected>All Categories</option>
+                    </select>
                 </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="BlazeStorm Cooling Fan">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <div class="product-details">
-                        <h2 class="product-title">BlazeStorm Cooling Fan</h2>
-                        <p class="product-price">$9.00</p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="Gamepad Game Controller">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <div class="product-details">
-                        <h2 class="product-title">Gamepad Game Controller</h2>
-                        <p class="product-price">$20.00</p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="Gaming Headphones">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <span class="sale-badge">Sale</span>
-                    <div class="product-details">
-                        <h2 class="product-title">Gaming Headphones</h2>
-                        <p class="product-price">$49.00 <span class="original-price">$75.00</span></p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="Gaming Keyboard">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <span class="sale-badge">Sale</span>
-                    <div class="product-details">
-                        <h2 class="product-title">Gaming Keyboard</h2>
-                        <p class="product-price">$50.00 <span class="original-price">$65.00</span></p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="https://via.placeholder.com/200" alt="Hyper Vibe RGB Headset">
-                    </div>
-                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
-                    <div class="product-details">
-                        <h2 class="product-title">Hyper Vibe RGB Headset</h2>
-                        <p class="product-price">$67.00</p>
-                        <button class="add-to-cart">Add To Cart</button>
-                    </div>
+                <div class="col-md-2">
+                    <label for="brand" class="form-label"><b>Brand</b></label>
+                    <select id="brand" class="form-select form-select form-select-sm bg-dark text-white border-secondary">
+                        <option value="all" selected>All Brand</option>
+                        <option value="SAmsung">Samsung</option>
+                    </select>
                 </div>
             </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="row mt-4">
+                <!-- Filtered products will be dynamically loaded here -->
+            </div>
+
 
             <!-- Pagination -->
             <div class="pagination">
@@ -105,4 +50,166 @@
         </div>
     </main>
 </body>
+
+<script>
+    function loadProducts() {
+        $.ajax({
+            type: "GET",
+            url: "<?= site_url('admin/products/list') ?>",
+            dataType: "json",
+            success: function(response) {
+                console.log("Response:", response); // Debugging the response
+
+                if (response.status === 'success' && response.data.length > 0) {
+                    const products = response.data;
+                    const productContainer = $('#product-grid'); // Select the grid container
+                    productContainer.empty(); // Clear previous content
+
+                    // Iterate through products and generate cards
+                    products.forEach(function(product) {
+                        const price = parseFloat(product.price);
+                        const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2);
+
+                        const productCard = `
+                        <div class="col-md-4 col-lg-3 mt-3">
+                            <div class="product-card h-100">
+                                <div class="product-image">
+                                    <img src="<?= base_url(); ?>public/userdata/img/${product.image_path}" alt="${product.product_name}">
+                                </div>
+                                <div class="card-body">
+                                    <button class="wishlist" aria-label="Add to wishlist">♡</button>
+                                    <div class="product-details">
+                                        <h2 class="product-title">${product.product_name}</h2>
+                                        <p class="product-price">$${formattedPrice}</p>
+                                        <p class="product-text">${product.description || 'No description available.'}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <button class="add-to-cart btn btn-primary m-1" data-id="${product.product_id}">Add To Cart</button>
+                                            <p class="product-quantity mt-5">Qty: ${product.quantity}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                        productContainer.append(productCard);
+                    });
+
+                } else {
+                    $('#product-grid').html('<p class="text-center">No products available.</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", xhr.responseText);
+                Swal.fire('Error', 'An error occurred while loading products.', 'error');
+            }
+        });
+    }
+
+
+    function loadCategories() {
+        $.ajax({
+            url: '/admin/category/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                console.log("Categories Response:", response); // Debugging the response
+
+                if (response.status === 'success' && response.data.length > 0) {
+                    const categories = response.data;
+                    const categoryDropdown = $('#categories'); // Select the dropdown
+                    categoryDropdown.empty(); // Clear previous options
+                    categoryDropdown.append('<option value="all" selected>All Categories</option>'); // Add default option
+
+                    // Iterate through categories and add options
+                    categories.forEach(function(category) {
+                        const option = `<option value="${category.category_id}">${category.category_name}</option>`;
+                        categoryDropdown.append(option);
+                    });
+                } else {
+                    console.warn('No categories found.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching categories:', xhr.responseText);
+            }
+        });
+
+        $('#categories').change(function() {
+            const categoryId = $(this).val();
+
+            // Trigger AJAX call to fetch products
+            if (categoryId === 'all') {
+                loadProducts(); // Reload all products
+            } else {
+                $.ajax({
+                    url: `/admin/category/products/${categoryId}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            renderProducts(response.data);
+                        } else {
+                            $('#product-grid').html('<p class="text-center">No products found for this category.</p>');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error fetching products:', xhr.responseText);
+                        $('#product-grid').html('<p class="text-center">An error occurred.</p>');
+                    }
+                });
+            }
+        });
+    }
+
+    function renderProducts(products) {
+        const productContainer = $('#product-grid');
+        productContainer.empty(); // Clear previous content
+
+        if (products.length > 0) {
+            products.forEach(product => {
+                const price = parseFloat(product.price);
+                const formattedPrice = isNaN(price) ? 'N/A' : price.toFixed(2); // Calculate formattedPrice here
+
+                const productCard = `
+                <div class="col-md-4 col-lg-3 mt-3">
+                    <div class="product-card h-100">
+                        <div class="product-image">
+                            <img src="<?= base_url(); ?>public/userdata/img/${product.image_path}" alt="${product.product_name}">
+                        </div>
+                        <div class="card-body">
+                            <button class="wishlist" aria-label="Add to wishlist">♡</button>
+                            <div class="product-details">
+                                <h2 class="product-title">${product.product_name}</h2>
+                                <p class="product-price">$${formattedPrice}</p>
+                                <p class="product-text">${product.description || 'No description available.'}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="add-to-cart btn btn-primary m-1" data-id="${product.product_id}">Add To Cart</button>
+                                    <p class="product-quantity mt-5">Qty: ${product.quantity}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                productContainer.append(productCard);
+            });
+        } else {
+            productContainer.html('<p class="text-center">No products available.</p>');
+        }
+    }
+
+
+
+
+    // Call this function on page load
+    $(document).ready(function() {
+        loadCategories();
+    });
+
+    // Call the function to load products
+    $(document).ready(function() {
+        loadProducts();
+    });
+</script>
+
 </html>

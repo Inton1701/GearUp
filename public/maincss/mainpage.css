@@ -78,6 +78,7 @@
     }
 
     .breadcrumb {
+
         text-align: center;
         margin-bottom: 40px;
     }
@@ -170,6 +171,12 @@
         gap: 30px;
         margin-bottom: 40px;
     }
+    
+    .card:hover .default-text {
+    color: green; /* Change text color to green */
+    transform: scale(1.1); /* Optional: Add a slight zoom effect */
+}
+
 
     .product-card {
         background-color: #1a1a1a;
@@ -313,3 +320,277 @@
             margin: 10px 0;
         }
     }
+        .pentagon-chart {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+        }
+        
+        .pentagon-chart svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .component-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+/* General scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4CAF50; /* Color of the scrollbar handle */
+    border-radius: 6px; /* Roundness of the handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #45A049; /* Color on hover */
+}
+
+::-webkit-scrollbar-track {
+    background: #1c1c1c; /* Background of the scrollbar track */
+    border-radius: 6px; /* Roundness of the track */
+}
+
+/* Firefox-specific scrollbar styles */
+* {
+    scrollbar-width: thin; /* Make the scrollbar thinner */
+    scrollbar-color: #4CAF50 #1c1c1c; /* Thumb color and track color */
+}
+
+button.list-group-item {
+    border: 1px solid #5f5f5f; /* Ensure all sides have a border */
+    border-radius: 5px; /* Optional: Match existing rounded corners */
+}
+
+button.list-group-item:hover {
+    border-color: #4CAF50; /* Green border color on hover */
+}
+
+/* Custom Profile styles */
+
+        .profile-header {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .profile-info h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+        }
+
+        .sidebar {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .sidebar-menu {
+            list-style-type: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sidebar-menu a:hover {
+            color: #4CAF50;
+        }
+
+        .main-content {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .order-list {
+            list-style-type: none;
+        }
+
+        .order-item {
+            background-color: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-item h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-status {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        .checkout-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            border-top: 1px solid #333;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .shipping-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .shipping-label {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .shipping-method {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .subtotal-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .subtotal {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .payment-info {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .payment-info a {
+            color: #4CAF50;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .payment-info a:hover {
+            text-decoration: underline;
+        }
+
+        .add-to-cart-btn {
+            background-color: #4CAF50;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #4CAF50;
+        }
+
+        .cart-icon {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-bar {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+                gap: 10px;
+            }
+
+            .shipping-info,
+            .subtotal-section {
+                align-items: center;
+                text-align: center;
+            }
+
+            .add-to-cart-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+

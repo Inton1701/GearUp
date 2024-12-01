@@ -29,4 +29,14 @@ class Mainpage extends Controller
     {
         $this->call->view('mainpage/home');
     }
+
+    public function build()
+    {
+        $this->call->view('mainpage/build');
+    }
+
+    public function profile()
+    {
+        $this->call->view('mainpage/profile');
+    }
 }

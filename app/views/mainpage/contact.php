@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Contact US</title>
-    <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/mainpage.css" />
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
 </head>
+
 <body>
-<?php include APP_DIR.'views/templates/main_nav.php';?>
-<main>
+    <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
+    <main>
         <div class="container">
-            <h1>Contact Us</h1>
-            <div class="breadcrumb">
-                <a href="#">Home</a> / <span class="active">Contact Us</span>
-            </div>
+            <h1><b>Contact Us</b></h1>
 
             <div class="contact-info">
                 <div class="contact-item">
@@ -51,4 +50,5 @@
         </div>
     </main>
 </body>
+
 </html>
