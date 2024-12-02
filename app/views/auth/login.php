@@ -11,9 +11,13 @@
 <body>
     <main>
         <div class="container">
+            <?php if (!empty($error)) : ?>
+                <div class="alert alert-danger"><?= $error; ?></div>
+            <?php endif; ?>
+
             <div class="logo fs-2">Gear<span>UP</span></div>
             <h6>Login to Your Account</h6>
-            <form action="#" method="POST">
+            <form action="/login" method="POST">
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
