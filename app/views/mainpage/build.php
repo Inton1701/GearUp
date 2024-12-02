@@ -30,49 +30,55 @@
                 <div class="col-5">
                     <h4 class="mb-4">Select your Components</h4>
                     <div class="list-group overflow-auto" style="max-height: 400px;">
-                    <button id="processorButton" class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="processor" data-original-icon="bi bi-cpu" data-original-label="Processor">
-    <div class="d-flex align-items-center">
-        <i class="bi bi-cpu me-3"></i>
-        <h6 class="mb-0">Processor</h6>
-    </div>
-</button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="cpu-cooler">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-category="processors" data-component="processor">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-cpu me-3"></i>
+                                <h6 class="mb-0">Processor</h6>
+                            </div>
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-category="cpu-coolers" data-component="cpu-coolers">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-fan me-3"></i>
                                 <h6 class="mb-0">CPU Cooler</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="motherboard">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-category="motherboard" data-component="motherboard">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-motherboard me-3"></i>
                                 <h6 class="mb-0">Motherboard</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="graphics-card">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="graphics-card" data-component="graphics-card">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-gpu-card me-3"></i>
                                 <h6 class="mb-0">Graphics Card</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="storage-drive">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="solid-state-drive" data-component="solid-state-drive">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-device-hdd me-3"></i>
-                                <h6 class="mb-0">Storage Drive</h6>
+                                <h6 class="mb-0">Solid State Drive</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="ram">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="hard-disk-drive" data-component="hard-disk-drive">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-device-hdd me-3"></i>
+                                <h6 class="mb-0">Hard Disk Drive</h6>
+                            </div>
+                        </button>
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="ram" data-component="ram">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-memory me-3"></i>
                                 <h6 class="mb-0">RAM</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="power-supply">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="power-supply" data-component="power-supply">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-power me-3"></i>
                                 <h6 class="mb-0">Power Supply</h6>
                             </div>
                         </button>
-                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2" data-component="case">
+                        <button class="list-group-item list-group-item-action bg-dark text-white mb-3 p-3 rounded-2"  data-category="case" data-component="case">
                             <div class="d-flex align-items-center">
                                 <i class="bi bi-pc me-3"></i>
                                 <h6 class="mb-0">Case</h6>
@@ -106,83 +112,7 @@
 
                     <!-- Scrollable Product Cards -->
                     <div id="productList" class="overflow-auto" style="max-height: 400px;">
-                        <!-- Sample Product 1 -->
-                        <div class="card bg-dark text-white border-secondary mb-3" data-component="processor">
-                            <div class="card-header bg-success text-white">Sale</div>
-                            <div class="card-body">
-                                <div class="d-flex gap-3">
-                                    <img src="images/processor.jpg" alt="Processor" class="rounded" style="width: 80px; height: 80px;">
-                                    <div class="flex-grow-1">
-                                        <h6 class="card-title">Ryzen 5 5600X</h6>
-                                        <p class="card-text mb-2">High-performance processor with 6 cores and 12 threads.</p>
-                                        <p class="card-text"><small class="text-muted">3.7 GHz - 4.6 GHz</small></p>
-                                    </div>
-                                    <div class="text-end">
-                                        <h5 class="mb-2">P19,999.00</h5>
-                                        <button class="btn btn-outline-success btn-sm">SELECT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card bg-dark text-white border-secondary mb-3" data-component="processor">
-    <div class="card-header bg-success text-white">Sale</div>
-    <div class="card-body">
-        <div class="d-flex gap-3">
-            <img src="images/intel-i7.jpg" alt="Intel i7" class="rounded" style="width: 80px; height: 80px;">
-            <div class="flex-grow-1">
-                <h6 class="card-title">Intel Core i7 12700K</h6>
-                <p class="card-text mb-2">Powerful processor for high performance.</p>
-                <p class="card-text"><small class="text-muted">3.6 GHz - 5.0 GHz</small></p>
-            </div>
-            <div class="text-end">
-                <h5 class="mb-2">P23,999.00</h5>
-                <button class="btn btn-outline-success btn-sm">SELECT</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-                        <!-- Sample Product 2 -->
-                        <div class="card bg-dark text-white border-secondary mb-3" data-component="graphics-card">
-                            <div class="card-header bg-danger text-white">New</div>
-                            <div class="card-body">
-                                <div class="d-flex gap-3">
-                                    <img src="images/graphics-card.jpg" alt="Graphics Card" class="rounded" style="width: 80px; height: 80px;">
-                                    <div class="flex-grow-1">
-                                        <h6 class="card-title">NVIDIA GeForce RTX 3080</h6>
-                                        <p class="card-text mb-2">Ultimate graphics card for 4K gaming and content creation.</p>
-                                        <p class="card-text"><small class="text-muted">10 GB GDDR6X</small></p>
-                                    </div>
-                                    <div class="text-end">
-                                        <h5 class="mb-2">P39,999.00</h5>
-                                        <button class="btn btn-outline-success btn-sm">SELECT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sample Product 3 -->
-                        <div class="card bg-dark text-white border-secondary mb-3" data-component="storage-drive">
-                            <div class="card-header bg-primary text-white">Featured</div>
-                            <div class="card-body">
-                                <div class="d-flex gap-3">
-                                    <img src="images/storage-drive.jpg" alt="Storage Drive" class="rounded" style="width: 80px; height: 80px;">
-                                    <div class="flex-grow-1">
-                                        <h6 class="card-title">Samsung 970 EVO Plus</h6>
-                                        <p class="card-text mb-2">High-speed NVMe SSD for fast read and write speeds.</p>
-                                        <p class="card-text"><small class="text-muted">1 TB</small></p>
-                                    </div>
-                                    <div class="text-end">
-                                        <h5 class="mb-2">P9,499.00</h5>
-                                        <button class="btn btn-outline-success btn-sm">SELECT</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Add more product cards here -->
+                      <!-- Product list will display here -->
                     </div>
                 </div>
             </div>
@@ -195,29 +125,31 @@
     <script>
         $(document).ready(function() {
             // Radar Chart
-            const ctx = $('#radarChart')[0].getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['Performance', 'Budget', 'Upgradability', 'Aesthetics', 'Cooling Efficiency'],
-                    datasets: [{
-                        label: 'Gaming Build',
-                        data: [90, 70, 85, 75, 80],
-                        fill: true,
-                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
-                        borderColor: 'rgba(76, 175, 80, 1)',
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            suggestedMin: 0,
-                            suggestedMax: 100
+            const ctx = $('#radarChart')[0]?.getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Performance', 'Budget', 'Upgradability', 'Aesthetics', 'Cooling Efficiency'],
+                        datasets: [{
+                            label: 'Gaming Build',
+                            data: [90, 70, 85, 75, 80],
+                            fill: true,
+                            backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                            borderColor: 'rgba(76, 175, 80, 1)',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            r: {
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
 
             // Product Filters
             function filterProducts() {
@@ -244,33 +176,15 @@
 
             // Component Selection
             $('.list-group-item-action').on('click', function() {
+                const selectedCategory = $(this).data('category');
                 const selectedComponent = $(this).data('component');
 
-                $('#productList .card').each(function() {
-                    const product = $(this);
-                    const cardComponent = product.data('component');
-                    product.toggle(cardComponent === selectedComponent || selectedComponent === 'all');
-                });
-            });
+                console.log(selectedCategory);
+                // Highlight selected button
+                $('.list-group-item-action').removeClass('bg-success text-dark').addClass('bg-dark text-white');
+                $(this).removeClass('bg-dark text-white').addClass('bg-success text-dark');
 
-            $('.list-group-item-action').on('click', function() {
-                const selectedComponent = $(this).data('component');
-                const button = $(this);
-        const originalIcon = button.data('original-icon');
-        const originalLabel = button.data('original-label');
-
-        // Check if the button is already in its updated state
-        if (!button.hasClass('bg-dark')) {
-            // Revert to original state
-            button.html(`
-                <div class="d-flex align-items-center">
-                    <i class="${originalIcon} me-3"></i>
-                    <h6 class="mb-0">${originalLabel}</h6>
-                </div>
-            `).removeClass('bg-success text-dark').addClass('bg-dark text-white');
-        }
-
-                // Update heading based on clicked component
+                // Update heading
                 const headingMap = {
                     processor: "Processors",
                     "cpu-cooler": "CPU Coolers",
@@ -281,50 +195,98 @@
                     "power-supply": "Power Supplies",
                     case: "Cases",
                 };
-                const newHeading = headingMap[selectedComponent] || "Components";
-                $('#componentHeading').text(newHeading);
+                $('#componentHeading').text(headingMap[selectedComponent] || "Components");
 
-                // Filter product list
-                $('#productList .card').each(function() {
-                    const product = $(this);
-                    const cardComponent = product.data('component');
-                    product.toggle(cardComponent === selectedComponent || selectedComponent === 'all');
+                // Fetch products
+                $.ajax({
+                    url: `<?= base_url(); ?>products/fetch_products_by_category/${selectedCategory}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        const productList = $('#productList');
+                        productList.empty();
+
+                        if (response.status === 'success') {
+                            console.log(response);
+                            const products = response.data.product;
+                            products.forEach(product => {
+    const productCard = `
+        <div class="card bg-dark text-white border-secondary mb-3" data-component="${selectedComponent}">
+            <div class="card-header bg-success text-white">Sale</div>
+            <div class="card-body">
+                <div class="d-flex gap-3">
+                    <img src="<?= base_url() ?>public/userdata/img/${product.image_path}" class="rounded" style="width: 80px; height: 80px;">
+                    <div class="flex-grow-1">
+                        <h5 class="card-title">${product.product_name}</h5>
+                        <p class="card-text mb-2">${product.description || ''}</p>
+                        <div class="text-end">
+                            <h6 class="text-success">${product.price || 'N/A'}</h6>
+                            <button class="btn btn-outline-success btn-sm">SELECT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    productList.append(productCard);
+});
+                        } else {
+                            productList.html('<p class="text-danger">No products found for this category.</p>');
+                        }
+                    },
+                    error: function() {
+                        $('#productList').html('<p class="text-danger">Failed to fetch products. Please try again later.</p>');
+                    }
                 });
             });
-            $('#productList').on('click', '.btn-outline-success', function () {
-        const card = $(this).closest('.card'); // Get the selected card
-        const component = card.data('component'); // Get the component type
-        const imageSrc = card.find('img').attr('src'); // Get the product's image URL
-        const productName = card.find('.card-title').text(); // Get the product's name
 
-        // Map component type to corresponding button ID
-        const buttonMap = {
-            processor: '#processorButton',
-            'cpu-cooler': '#cpuCoolerButton',
-            motherboard: '#motherboardButton',
-            'graphics-card': '#graphicsCardButton',
-            'storage-drive': '#storageDriveButton',
-            ram: '#ramButton',
-            'power-supply': '#powerSupplyButton',
-            case: '#caseButton',
-        };
+            // Product Selection
+          $('#productList').on('click', '.btn-outline-success', function () {
+        const card = $(this).closest('.card');
+        const component = card.data('component'); // Get the component type (e.g., "processor", "motherboard", etc.)
+        const imageSrc = card.find('img').attr('src');
+        const productName = card.find('.card-title').text();
+        const productPrice = card.find('.text-success').text();
 
-        const buttonId = buttonMap[component];
-        if (buttonId) {
-            const button = $(buttonId);
+        // Dynamically find the corresponding button for the selected component
+        const button = $(`.list-group-item[data-component="${component}"]`);
 
-            // Update the button's content
+        if (button.length) {
+            // Store original content to restore later
+            if (!button.data('originalContent')) {
+                button.data('originalContent', button.html());
+            }
+
+            // Replace button content with the selected product details
             button.html(`
                 <div class="d-flex align-items-center">
                     <img src="${imageSrc}" alt="${productName}" class="me-3" style="width: 30px; height: 30px; border-radius: 50%;">
-                    <h6 class="mb-0">${productName}</h6>
+                    <div class="text-start">
+                        <h6 class="mb-0">${productName}</h6>
+                        <small class="text-success">${productPrice}</small>
+                    </div>
                 </div>
-            `).removeClass('bg-dark text-white').addClass('bg-success text-dark'); // Update button styling
+            `).removeClass('bg-dark text-white').addClass('bg-success text-dark');
         }
     });
+
+    // Restore Original Button Look
+    $('.list-group-item-action').on('click', function () {
+        const button = $(this);
+        const originalContent = button.data('originalContent');
+
+        if (originalContent) {
+            // Restore original button content
+            button.html(originalContent)
+                .removeClass('bg-success text-dark')
+                .addClass('bg-dark text-white');
+            button.data('originalContent', null); // Clear stored content
+        }
+    });
+
         });
-        
     </script>
+
 </body>
 
 </html>

@@ -93,3 +93,7 @@ $router->group('admin/user', function() use ($router) {
     $router->post('update', 'User::update_user'); 
     $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']); 
 });
+
+$router->group('products', function() use ($router){
+    $router->get('fetch_products_by_category/{category}', 'Products::get_product_by_categories');
+});

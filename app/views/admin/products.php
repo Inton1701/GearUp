@@ -9,6 +9,17 @@
   <title>Dashboard</title>
 
 </head>
+<style>
+
+  td a {
+    display: inline-block; /* Ensures truncation applies */
+    max-width: 150px; /* Adjust as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+</style>
 
 <body>
 
@@ -199,7 +210,7 @@
                   <a href="javascript:void(0);" class="product-img stock-img">
                     <img src="<?= base_url(); ?>public/userdata/img/${product.image_path}"/>
                   </a>
-                  <a href="javascript:void(0);">${product.product_name}</a>
+                   <a href="javascript:void(0);" class="text-truncate d-block" style="max-width: 150px;">${product.product_name}</a>
                 </div>
               `,
                   product.category_name,

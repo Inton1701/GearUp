@@ -17,10 +17,10 @@ class Products_model extends Model {
         ->inner_join('brand as b', 'p.brand_id=b.brand_id')->where('product_id', $id)->get();;
     }
     public function get_categories(){
-        return $this->db->table('categories')->get_all();
+        return $this->db->table('categories')->where_null('delete_at')->get_all();
     }
     public function get_brands(){
-        return $this->db->table('brand')->get_all();
+        return $this->db->table('brand')->where_null('deleted_at')->get_all();
     }
     public function create_product($product_name, $category, $brand, $performance, $description, $price,$cost, $quantity,  $quantity_alert, $image_path){
         $data = array(
@@ -63,6 +63,13 @@ class Products_model extends Model {
         
         return $this->db->table('products')->where('product_id', $product_id)->update($data);
 
+    }
+
+    public function get_products_by_category($category){
+        return $this->db->table('products as p')
+        ->inner_join('categories as c', 'p.category_id=c.category_id')
+        ->where_null('p.deleted_at')->where('category_name', $category) 
+        ->get_all();
     }
 
 

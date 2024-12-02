@@ -193,4 +193,22 @@ class Products extends Controller
             ]);
         }
     }
+    public function get_product_by_categories($category){
+        $product = $this->products_model->get_products_by_category($category);
+        if(!$category){
+            echo json_encode([
+                'status' => 'error',
+                'message' => 'No Product Found Under this Categroy'
+            ]);
+            return;
+        }else{
+            echo json_encode([
+                'status' => 'success',
+                'data' => [ 
+                    'product' => $product,
+          
+                ]
+            ]);
+        }
+    }
 }
