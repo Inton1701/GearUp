@@ -38,8 +38,8 @@
         <div class="profile-content">
             <div class="sidebar">
                 <ul class="sidebar-menu">
-                    <li><a href="#"><i class="fas fa-user"></i> My Account</a></li>
-                    <li><a href="#"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
+                    <li><a href="/profile"><i class="fas fa-user"></i> My Account</a></li>
+                    <li><a href="/order"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                     <li><a href="#"><i class="fas fa-heart"></i> Wishlist</a></li>
                     <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
                     <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
@@ -47,36 +47,84 @@
                 </ul>
             </div>
             <div class="main-content">
-                <h2 class="section-title">Recent Orders</h2>
-                <ul class="order-list">
-                    <li class="order-item">
-                        <h3>Order #12345</h3>
-                        <div class="order-details">
-                            <span>2 items</span>
-                            <span>$150.00</span>
-                            <span class="order-status">Delivered</span>
-                        </div>
-                    </li>
-                    <li class="order-item">
-                        <h3>Order #12344</h3>
-                        <div class="order-details">
-                            <span>1 item</span>
-                            <span>$75.00</span>
-                            <span class="order-status">Processing</span>
-                        </div>
-                    </li>
-                    <li class="order-item">
-                        <h3>Order #12343</h3>
-                        <div class="order-details">
-                            <span>3 items</span>
-                            <span>$225.00</span>
-                            <span class="order-status">Shipped</span>
-                        </div>
-                    </li>
-                </ul>
+    <h2 class="section-title">My Profile</h2>
+    <p class="subtitle">Manage and protect your account</p>
+    
+    <div class="profile-form">
+        <div class="form-content">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" value="warendilay" disabled>
+                <span class="help-text">Username can only be changed once.</span>
             </div>
+            
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <div class="email-group">
+                    <span>dj***********@gmail.com</span>
+                    <a href="#" class="change-link">Change</a>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Phone Number</label>
+                <div class="phone-group">
+                    <span>*********11</span>
+                    <a href="#" class="change-link">Change</a>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="male">
+                        <span>Male</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="female">
+                        <span>Female</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="gender" value="other">
+                        <span>Other</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Date of birth</label>
+                <div class="date-group">
+                    <select class="date-select">
+                        <option>Date</option>
+                    </select>
+                    <select class="date-select">
+                        <option>Month</option>
+                    </select>
+                    <select class="date-select">
+                        <option>Year</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="save-button">Save</button>
         </div>
-    </main>
+        
+        <div class="avatar-section">
+            <div class="avatar-placeholder">
+                <img src="https://via.placeholder.com/150" alt="Profile Picture">
+            </div>
+            <button class="select-image-button">Select Image</button>
+            <p class="file-info">File size: maximum 1 MB</p>
+            <p class="file-info">File extension: .JPEG, .PNG</p>
+        </div>
+    </div>
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>

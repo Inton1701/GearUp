@@ -41,7 +41,56 @@
             <p>Lorem ipsum dolor sit amet consectetur. Egestas leo a ornare risus leo ultricorper neque dictum arcu. At vel porta ut eget non risus nulla.</p>
         </div>
     </section>
-
+    <section class="comments-section">
+    <h2>Customer Reviews</h2>
+    <div class="comment-form">
+        <h3>Leave a Review</h3>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="">Select a rating</option>
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="2">2 Stars</option>
+                    <option value="1">1 Star</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comment">Your Review:</label>
+                <textarea id="comment" name="comment" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="submit-comment">Submit Review</button>
+        </form>
+    </div>
+    <div class="comments-list">
+        <div class="comment">
+            <div class="comment-header">
+                <h4>John Doe</h4>
+                <div class="rating">★★★★☆</div>
+            </div>
+            <p class="comment-date">Posted on May 15, 2023</p>
+            <p class="comment-content">This cooling fan is amazing! It keeps my gaming setup cool even during intense gaming sessions. Highly recommended!</p>
+        </div>
+        <div class="comment">
+            <div class="comment-header">
+                <h4>Jane Smith</h4>
+                <div class="rating">★★★★★</div>
+            </div>
+            <p class="comment-date">Posted on May 10, 2023</p>
+            <p class="comment-content">Absolutely love this fan! It's quiet, efficient, and looks great. Perfect addition to my gaming room.</p>
+        </div>
+    </div>
+</section>
     <section class="related-products">
         <h2>Related Products</h2>
         <div class="products-grid">

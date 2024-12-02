@@ -53,7 +53,7 @@ $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
 $router->get('/profile', 'Mainpage::profile');
 $router->get('/view-product', 'Mainpage::view');
-
+$router->get('/order', 'Mainpage::order');
 
 $router->group('admin/products', function () use ($router) {
     $router->get('', 'Products::getList');
