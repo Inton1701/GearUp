@@ -52,6 +52,7 @@ $router->get('/cart', 'Mainpage::cart');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
 $router->get('/profile', 'Mainpage::profile');
+$router->get('/view-product', 'Mainpage::view');
 
 
 $router->group('admin/products', function () use ($router) {
