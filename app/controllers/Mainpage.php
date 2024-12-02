@@ -39,4 +39,9 @@ class Mainpage extends Controller
     {
         $this->call->view('mainpage/profile');
     }
+
+    public function view()
+    {
+        $this->call->view('mainpage/view-product');
+    }
 }
