@@ -49,4 +49,9 @@ class Mainpage extends Controller
     {
         $this->call->view('mainpage/order');
     }
+    
+    public function wishlist()
+    {
+        $this->call->view('mainpage/wishlist');
+    }
 }

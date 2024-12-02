@@ -40,7 +40,7 @@
                 <ul class="sidebar-menu">
                     <li><a href="/profile"><i class="fas fa-user"></i> My Account</a></li>
                     <li><a href="/order"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i> Wishlist</a></li>
+                    <li><a href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
                     <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
                     <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
@@ -48,29 +48,26 @@
             </div>
             <div class="main-content">
                 <h2 class="section-title">Wishlist</h2>
-                <ul class="order-list">
-                    <li class="order-item">
-                        <h3>Order #12345</h3>
-                        <div class="order-details">
+                <ul class="wish-list">
+                    <li class="wish-item">
+                        <h3>Item 1</h3>
+                        <div class="wish-details">
                             <span>2 items</span>
                             <span>$150.00</span>
-                            <span class="order-status">On Cart</span>
                         </div>
                     </li>
-                    <li class="order-item">
-                        <h3>Order #12344</h3>
-                        <div class="order-details">
+                    <li class="wish-item">
+                        <h3>Item 2</h3>
+                        <div class="wish-details">
                             <span>1 item</span>
                             <span>$75.00</span>
-                            <span class="order-status">On Cart</span>
                         </div>
                     </li>
-                    <li class="order-item">
-                        <h3>Order #12343</h3>
-                        <div class="order-details">
+                    <li class="wish-item">
+                        <h3>Item 3</h3>
+                        <div class="wish-details">
                             <span>3 items</span>
                             <span>$225.00</span>
-                            <span class="order-status">Shipped</span>
                         </div>
                     </li>
                 </ul>

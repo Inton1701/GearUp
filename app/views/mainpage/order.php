@@ -40,7 +40,7 @@
                 <ul class="sidebar-menu">
                     <li><a href="/profile"><i class="fas fa-user"></i> My Account</a></li>
                     <li><a href="/order"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i> Wishlist</a></li>
+                    <li><a href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
                     <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
                     <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
