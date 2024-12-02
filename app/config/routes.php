@@ -42,9 +42,15 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 |
 |
 */
-$router->get('/', 'Auth::Login');
-$router->get('/login', 'Auth::Login');
+$router->get('/login', 'Auth::showLoginForm');
+$router->post('/login', 'Auth::handleLogin');
+$router->get('/register', 'Auth::showRegisterForm');
+$router->post('/register', 'Auth::handleRegister');
+$router->get('/logout', 'Auth::logout');
+
 $router->get('/register', 'Auth::Register');
+
+
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
@@ -74,27 +80,26 @@ $router->group('admin/category', function () use ($router) {
     $router->post('update', 'Category::update_category');
     $router->match('delete/{id}', 'Category::delete_category', ['POST', 'GET']);
     $router->get('products/{id}', 'Category::get_products_by_category');
-
 });
 
-$router->group('admin/brand', function() use ($router) {
-    $router->get('', 'Brand::brand'); 
-    $router->match('add', 'Brand::add_brand', ['POST', 'GET']); 
-    $router->get('list', 'Brand::brand_list'); 
-    $router->match('get/{id}', 'Brand::get_brand', ['POST', 'GET']); 
-    $router->post('update', 'Brand::update_brand'); 
-    $router->match('delete/{id}', 'Brand::delete_brand', ['POST', 'GET']); 
+$router->group('admin/brand', function () use ($router) {
+    $router->get('', 'Brand::brand');
+    $router->match('add', 'Brand::add_brand', ['POST', 'GET']);
+    $router->get('list', 'Brand::brand_list');
+    $router->match('get/{id}', 'Brand::get_brand', ['POST', 'GET']);
+    $router->post('update', 'Brand::update_brand');
+    $router->match('delete/{id}', 'Brand::delete_brand', ['POST', 'GET']);
 });
 
-$router->group('admin/user', function() use ($router) {
-    $router->get('', 'User::user'); 
-    $router->match('add', 'User::add_user', ['POST', 'GET']); 
-    $router->get('list', 'User::user_list'); 
-    $router->match('get/{id}', 'User::get_user', ['POST', 'GET']); 
-    $router->post('update', 'User::update_user'); 
-    $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']); 
+$router->group('admin/user', function () use ($router) {
+    $router->get('', 'User::user');
+    $router->match('add', 'User::add_user', ['POST', 'GET']);
+    $router->get('list', 'User::user_list');
+    $router->match('get/{id}', 'User::get_user', ['POST', 'GET']);
+    $router->post('update', 'User::update_user');
+    $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']);
 });
 
-$router->group('products', function() use ($router){
+$router->group('products', function () use ($router) {
     $router->get('fetch_products_by_category/{category}', 'Products::get_product_by_categories');
 });

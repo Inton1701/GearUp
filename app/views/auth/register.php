@@ -13,7 +13,7 @@
         <div class="container">
             <div class="logo fs-2">Gear<span>UP</span></div>
             <h6>Create an Account</h6>
-            <form action="#" method="POST">
+            <form action="/register" method="POST">
                 <div class="avatar-upload">
                     <div class="avatar-placeholder">
                         <span>Profile Photo</span>
@@ -22,15 +22,23 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <input type="text" id="username" name="username" placeholder="Username" required>
+                        <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" id="phone" name="phone" placeholder="Phone" required>
+                        <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="date" id="birthdate" name="birthdate" placeholder="Birthdate" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="contact" name="contact" placeholder="contact" required>
                     </div>
                 </div>
                 <div class="form-row">
