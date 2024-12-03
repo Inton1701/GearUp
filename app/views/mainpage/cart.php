@@ -40,85 +40,13 @@
                             <td>$67.00</td>
                             <td>
                                 <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
+                                    <button class="quantity-btn"><i class="bi bi-dash"></i></button>
                                     <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
+                                    <button class="quantity-btn"><i class="bi bi-plus"></i></button>
                                 </div>
                             </td>
                             <td>$67.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gaming Keyboard">
-                                    <span>Gaming Keyboard</span>
-                                </div>
-                            </td>
-                            <td>$50.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$50.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gaming Headphones">
-                                    <span>Gaming Headphones</span>
-                                </div>
-                            </td>
-                            <td>$49.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$49.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gamepad Game Controller">
-                                    <span>Gamepad Game Controller</span>
-                                </div>
-                            </td>
-                            <td>$20.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$20.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="AeroBoost Laptop Stand">
-                                    <span>AeroBoost Laptop Stand</span>
-                                </div>
-                            </td>
-                            <td>$79.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$79.00</td>
-                            <td><button class="remove-btn">×</button></td>
+                            <td><button class="remove-btn"><i class="bi bi-x-lg"></i></button></td>
                         </tr>
                     </tbody>
                 </table>

@@ -20,11 +20,6 @@ class Mainpage extends Controller
         $this->call->view('mainpage/contact');
     }
 
-    public function cart()
-    {
-        $this->call->view('mainpage/cart');
-    }
-
     public function home()
     {
         $this->call->view('mainpage/home');
@@ -49,7 +44,7 @@ class Mainpage extends Controller
     {
         $this->call->view('mainpage/order');
     }
-    
+
     public function wishlist()
     {
         $this->call->view('mainpage/wishlist');

@@ -50,12 +50,12 @@ $router->get('/logout', 'Auth::logout');
 
 $router->get('/register', 'Auth::Register');
 
-$router->post('/cart', 'Cart::add');
+$router->get('/cart', 'Cart::view_cart');
+
 
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
-$router->get('/cart', 'Mainpage::cart');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
 $router->get('/profile', 'Mainpage::profile');

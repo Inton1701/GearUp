@@ -25,4 +25,9 @@ class Cart extends Controller
             echo json_encode(['status' => 'error', 'message' => 'Failed to add product to cart.']);
         }
     }
+
+    public function view_cart()
+    {
+        $this->call->view('mainpage/cart');
+    }
 }
