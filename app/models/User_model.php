@@ -25,14 +25,15 @@ class User_model extends Model {
         );
         return $this->db->table('users')->insert($data);
     }
+    public function check_credentials($email){
+        return $this->db->table('users')->where('email', $email)->where('user_status', 'active')->where_null('deleted_at')->get();;
+    }
     public function  update_users($user_id, $role, $status){
         $data = array(
             'role' => $role,
             'user_status' => $status
         );
-        
         return $this->db->table('users')->where('user_id', $user_id)->update($data);
-
     }
     public function  delete_users($user_id){
         $data = array(

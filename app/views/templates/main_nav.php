@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <header>
+    <?php
+      include APP_DIR . 'views/auth/check_session.php';
+      check_session();
+    ?>
     <div class="container">
         <nav>
             <div class="logo"><span>Gear</span>UP</div>

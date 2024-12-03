@@ -17,7 +17,7 @@
 
             <div class="logo fs-2">Gear<span>UP</span></div>
             <h6>Login to Your Account</h6>
-            <form action="/login" method="POST">
+            <form id="logUserForm">
                 <div class="form-group">
                     <input type="email" id="email" name="email" placeholder="Email" required>
                 </div>
@@ -48,6 +48,7 @@
 
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="<?= base_url(); ?>public/assets/plugins/sweetalert/sweetalert2.all.min.js" type="text/javascript"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const togglePassword = document.querySelector(".toggle-password");
@@ -63,6 +64,36 @@
                 this.querySelector("i").classList.toggle("fa-eye-slash");
             });
         });
+        $(document).ready(function() {
+        $('#logUserForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Retrieve form fields
+     
+        let formData = new FormData(this);
+        $.ajax({
+          url: "<?= site_url('user/verify'); ?>",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function(response) {
+            if (response.status === 'success') {
+                window.location.href = '/home';
+            }else{
+                Swal.fire('Error',response.message,'error');
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('AJAX Error:', error);
+            console.error('Status:', status);
+            console.error('Response:', xhr.responseText);
+            Swal.fire('Error', 'An error has occurred', 'error');
+          }
+        });
+      });
+    });
     </script>
 
 

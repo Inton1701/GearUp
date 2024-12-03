@@ -99,7 +99,7 @@ class Auth extends Controller
     // Handle logout
     public function logout()
     {
-        $this->session->destroy();
-        redirect('login');
+        $this->session->unset_userdata('user_id');
+        $this->call->view('auth/login');
     }
 }

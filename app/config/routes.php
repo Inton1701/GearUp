@@ -102,6 +102,16 @@ $router->group('admin/user', function () use ($router) {
     $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']);
 });
 
+$router->group('user', function () use ($router) {
+    $router->get('', 'User::user');
+    $router->match('register', 'User::register_user', ['POST', 'GET']);
+    $router->get('login', 'User::login_user');
+    $router->match('check_email', 'User::check_email', ['POST', 'GET']);
+    $router->post('verify', 'User::verify_user');
+    $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']);
+});
+
+
 $router->group('products', function () use ($router) {
     $router->get('fetch_products_by_category/{category}', 'Products::get_product_by_categories');
 });
