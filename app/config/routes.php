@@ -50,6 +50,7 @@ $router->get('/logout', 'Auth::logout');
 
 $router->get('/register', 'Auth::Register');
 
+$router->post('/cart', 'Cart::add');
 
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
