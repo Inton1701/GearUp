@@ -53,6 +53,8 @@ $router->get('/register', 'Auth::Register');
 $router->get('/cart', 'Cart::view_cart');
 
 
+
+
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');

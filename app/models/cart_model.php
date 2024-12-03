@@ -7,22 +7,19 @@ class Cart_model extends Model
     {
         $userId = $this->session->userdata('user_id');
         if (!$userId) {
-            return false; // User must be logged in
+            return false;
         }
 
-        // Check if the product is already in the cart
         $existingItem = $this->db->table('cart')
             ->where('user_id', $userId)
             ->where('product_id', $productId)
             ->get();
 
         if ($existingItem) {
-            // Update quantity if product exists
             return $this->db->table('cart')
                 ->where('cart_id', $existingItem['cart_id'])
                 ->update(['quantity' => $existingItem['quantity'] + 1]);
         } else {
-            // Add new product to cart
             $data = [
                 'user_id' => $userId,
                 'product_id' => $productId,
@@ -30,5 +27,14 @@ class Cart_model extends Model
             ];
             return $this->db->table('cart')->insert($data);
         }
+    }
+
+    public function get_cart_items($userId)
+    {
+        return $this->db->table('cart')
+            ->select('cart.quantity, products.product_name, products.price, products.image_path, (cart.quantity * products.price) as total_price')
+            ->join('products', 'cart.product_id = products.product_id')
+            ->where('cart.user_id', $userId)
+            ->get_all();
     }
 }

@@ -18,7 +18,6 @@ class Cart extends Controller
             return;
         }
 
-        // Add product to cart (via model)
         if ($this->cart_model->add_to_cart($productId)) {
             echo json_encode(['status' => 'success', 'message' => 'Product added to cart.']);
         } else {
@@ -28,6 +27,21 @@ class Cart extends Controller
 
     public function view_cart()
     {
+        if ($this->io->is_ajax()) {
+            $userId = $this->session->userdata('user_id');
+            if (!$userId) {
+                echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
+                return;
+            }
+
+            $cartItems = $this->cart_model->get_cart_items($userId);
+            if ($cartItems) {
+                echo json_encode(['status' => 'success', 'data' => $cartItems]);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Cart is empty.']);
+            }
+            return;
+        }
         $this->call->view('mainpage/cart');
     }
 }
