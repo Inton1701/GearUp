@@ -152,4 +152,31 @@ class Brand extends Controller
 
          }
         }
+
+       
+        public function get_products_by_brand($brand_id) {
+            if (!is_numeric($brand_id)) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Invalid category ID'
+                ]);
+                return;
+            }
+        
+            $products = $this->brand_model->get_products_by_brand($brand_id);
+        
+            if ($products) {
+                echo json_encode([
+                    'status' => 'success',
+                    'data' => $products
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'No products found for this category.'
+                ]);
+            }
+        }
+        
+        
 }

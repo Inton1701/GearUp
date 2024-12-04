@@ -44,6 +44,19 @@ class Brand_model extends Model {
 
     }
 
+    public function get_products_by_brand($brand_id) {
+        // Validate category_id
+        if (!is_numeric($brand_id)) {
+            return []; // Return empty if invalid
+        }
+    
+        // Fetch products
+        return $this->db->table('products')
+                        ->where('brand_id', $brand_id)
+                        ->get_all(); // Ensure 'get_all()' is used for multiple rows
+    }
+    
+
 
 
 }   

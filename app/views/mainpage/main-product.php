@@ -161,6 +161,61 @@
         });
     }
 
+    function loadBrands() {
+    $.ajax({
+        url: '/admin/brand/list', // Endpoint for fetching brands
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log("Brands Response:", response); // Debugging the response
+            if (response.status === 'success' && response.data.length > 0) {
+                const brands = response.data;
+                const brandDropdown = $('#brand'); // Select the dropdown
+                brandDropdown.empty(); // Clear previous options
+                brandDropdown.append('<option value="all" selected>All Brands</option>'); // Add default option
+
+                // Iterate through brands and add options
+                brands.forEach(function (brand) {
+                    const option = `<option value="${brand.brand_id}">${brand.brand_name}</option>`;
+                    brandDropdown.append(option);
+                });
+            } else {
+                console.warn('No brands found.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching brands:', xhr.responseText);
+        }
+    });
+
+    // Handle brand filter change
+    $('#brand').change(function() {
+    const brandId = $(this).val();
+
+    if (brandId === 'all') {
+        loadProducts(); // Reload all products if "All Brands" is selected
+    } else {
+        $.ajax({
+            url: `/admin/brand//products/${brandId}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    renderProducts(response.data); // Use your existing `renderProducts` function
+                } else {
+                    $('#product-grid').html('<p class="text-center">No products found for this brand.</p>');
+                }
+            },
+            error: function(xhr) {
+                console.error('Error fetching products:', xhr.responseText);
+                $('#product-grid').html('<p class="text-center">An error occurred.</p>');
+            }
+        });
+    }
+});
+
+}
+
     function renderProducts(products) {
         const productContainer = $('#product-grid');
         productContainer.empty(); // Clear previous content
@@ -201,15 +256,11 @@
 
 
 
-    // Call this function on page load
-    $(document).ready(function() {
-        loadCategories();
-    });
-
-    // Call the function to load products
-    $(document).ready(function() {
-        loadProducts();
-    });
+    $(document).ready(function () {
+    loadCategories();
+    loadBrands();
+    loadProducts();
+});
 </script>
 
 </html>

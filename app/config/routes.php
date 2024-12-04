@@ -91,6 +91,7 @@ $router->group('admin/brand', function () use ($router) {
     $router->match('get/{id}', 'Brand::get_brand', ['POST', 'GET']);
     $router->post('update', 'Brand::update_brand');
     $router->match('delete/{id}', 'Brand::delete_brand', ['POST', 'GET']);
+    $router->get('products/{id}', 'Brand::get_products_by_brand');
 });
 
 $router->group('admin/user', function () use ($router) {
