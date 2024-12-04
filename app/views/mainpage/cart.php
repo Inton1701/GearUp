@@ -30,96 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="HyperVibe RGB Headset">
-                                    <span>HyperVibe RGB Headset</span>
-                                </div>
-                            </td>
-                            <td>$67.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$67.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gaming Keyboard">
-                                    <span>Gaming Keyboard</span>
-                                </div>
-                            </td>
-                            <td>$50.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$50.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gaming Headphones">
-                                    <span>Gaming Headphones</span>
-                                </div>
-                            </td>
-                            <td>$49.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$49.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="Gamepad Game Controller">
-                                    <span>Gamepad Game Controller</span>
-                                </div>
-                            </td>
-                            <td>$20.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$20.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="product-info">
-                                    <img src="https://via.placeholder.com/60" alt="AeroBoost Laptop Stand">
-                                    <span>AeroBoost Laptop Stand</span>
-                                </div>
-                            </td>
-                            <td>$79.00</td>
-                            <td>
-                                <div class="quantity-control">
-                                    <button class="quantity-btn">-</button>
-                                    <input type="number" class="quantity-input" value="1" min="1">
-                                    <button class="quantity-btn">+</button>
-                                </div>
-                            </td>
-                            <td>$79.00</td>
-                            <td><button class="remove-btn">×</button></td>
-                        </tr>
+                        <!-- Products will be loaded here dynamically -->
                     </tbody>
                 </table>
             </div>
@@ -144,5 +55,62 @@
         </div>
     </main>
 </body>
+
+<script>
+    function loadCartItems() {
+        $.ajax({
+            url: '<?= site_url("cart") ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    const cartItems = response.data;
+                    const cartTableBody = $('tbody');
+                    cartTableBody.empty();
+
+                    let subtotal = 0;
+
+                    cartItems.forEach(item => {
+                        subtotal += parseFloat(item.total_price);
+
+                        const row = `
+                            <tr>
+                                <td>
+                                    <div class="product-info">
+                                        <img src="<?= base_url(); ?>public/userdata/img/${item.image_path}" alt="${item.product_name}">
+                                        <span>${item.product_name}</span>
+                                    </div>
+                                </td>
+                                <td>$${parseFloat(item.price).toFixed(2)}</td>
+                                <td>
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn decrease" data-id="${item.product_id}">-</button>
+                                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" data-id="${item.product_id}">
+                                        <button class="quantity-btn increase" data-id="${item.product_id}">+</button>
+                                    </div>
+                                </td>
+                                <td>$${parseFloat(item.total_price).toFixed(2)}</td>
+                                <td><button class="remove-btn" data-id="${item.product_id}">X</button></td>
+                            </tr>
+                        `;
+                        cartTableBody.append(row);
+                    });
+
+                    $('.subtotal').text(`Subtotal: $${subtotal.toFixed(2)}`);
+                } else {
+                    $('tbody').html('<tr><td colspan="5" class="text-center">Your cart is empty.</td></tr>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading cart:', xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadCartItems();
+    });
+</script>
+
 
 </html>

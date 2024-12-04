@@ -50,7 +50,7 @@
         </div>
     </main>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function loadProducts() {
         $.ajax({
@@ -253,6 +253,29 @@
         }
     }
 
+    $(document).on('click', '.add-to-cart', function() {
+        const productId = $(this).data('id');
+
+        $.ajax({
+            url: "<?= site_url('cart'); ?>",
+            type: "POST",
+            data: {
+                product_id: productId
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire('Success', 'Product added to cart!', 'success');
+                } else {
+                    Swal.fire('Error', response.message || 'Failed to add product to cart.', 'error');
+                }
+            },
+            error: function(xhr) {
+                console.error('AJAX Error:', xhr.responseText);
+                Swal.fire('Error', 'An unexpected error occurred.', 'error');
+            }
+        });
+    });
 
 
 
