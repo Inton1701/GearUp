@@ -12,12 +12,11 @@ class Cart extends Controller
     public function add()
     {
         $productId = $this->io->post('product_id');
-
         if (!$productId) {
             echo json_encode(['status' => 'error', 'message' => 'Invalid product ID.']);
             return;
         }
-
+        // Add product to cart (via model)
         if ($this->cart_model->add_to_cart($productId)) {
             echo json_encode(['status' => 'success', 'message' => 'Product added to cart.']);
         } else {
@@ -43,5 +42,60 @@ class Cart extends Controller
             return;
         }
         $this->call->view('mainpage/cart');
+    }
+
+    public function update_quantity()
+    {
+        if ($this->io->is_ajax()) {
+            $productId = $this->io->post('product_id');
+            $quantity = $this->io->post('quantity');
+
+            if (!$productId || !$quantity || intval($quantity) < 1) {
+                echo json_encode(['status' => 'error', 'message' => 'Invalid product ID or quantity.']);
+                return;
+            }
+
+            $userId = $this->session->userdata('user_id');
+            if (!$userId) {
+                echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
+                return;
+            }
+
+            $updated = $this->cart_model->update_cart_quantity($userId, $productId, intval($quantity));
+            if ($updated) {
+                echo json_encode(['status' => 'success', 'message' => 'Cart updated successfully.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to update cart.']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
+        }
+    }
+
+    public function remove()
+    {
+        if ($this->io->is_ajax()) {
+            $productId = $this->io->post('product_id');
+
+            if (!$productId) {
+                echo json_encode(['status' => 'error', 'message' => 'Invalid product ID.']);
+                return;
+            }
+
+            $userId = $this->session->userdata('user_id');
+            if (!$userId) {
+                echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
+                return;
+            }
+
+            $removed = $this->cart_model->remove_cart_item($userId, $productId);
+            if ($removed) {
+                echo json_encode(['status' => 'success', 'message' => 'Item removed from cart.']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to remove item from cart.']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
+        }
     }
 }

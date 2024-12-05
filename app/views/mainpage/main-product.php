@@ -255,7 +255,6 @@
 
     $(document).on('click', '.add-to-cart', function() {
         const productId = $(this).data('id');
-
         $.ajax({
             url: "<?= site_url('cart'); ?>",
             type: "POST",

@@ -42,6 +42,7 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 |
 |
 */
+$router->get('/', 'Auth::showLoginForm');
 $router->get('/login', 'Auth::showLoginForm');
 $router->post('/login', 'Auth::handleLogin');
 $router->get('/register', 'Auth::showRegisterForm');
@@ -50,10 +51,10 @@ $router->get('/logout', 'Auth::logout');
 
 $router->get('/register', 'Auth::Register');
 
+$router->post('/cart', 'Cart::add');
 $router->get('/cart', 'Cart::view_cart');
-
-
-
+$router->post('/cart/update', 'Cart::update_quantity');
+$router->post('/cart/remove', 'Cart::remove');
 
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
