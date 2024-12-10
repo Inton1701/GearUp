@@ -10,37 +10,43 @@ class Checkout_model extends Model
 
     public function create_order($userId, $addressId, $cartItems)
     {
-        $this->db->begin_transaction();
+        // Calculate total price
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item['quantity'] * $item['price'];
+        }
 
-        try {
-            $totalPrice = 0;
-            foreach ($cartItems as $item) {
-                $totalPrice += $item['quantity'] * $item['price'];
-            }
+        // Insert order
+        $orderId = $this->db->table('orders')->insert([
+            'user_id' => $userId,
+            'status' => 'Pending',
+            'total_price' => $totalPrice,
+            'payment_method' => 'Cash on Delivery',
+        ]);
 
-            $orderId = $this->db->table('orders')->insert([
-                'user_id' => $userId,
-                'status' => 'Pending',
-                'total_price' => $totalPrice,
-                'payment_method' => 'Cash on Delivery',
-                'address_id' => $addressId,
-            ]);
-
-            foreach ($cartItems as $item) {
-                $this->db->table('ordered_items')->insert([
-                    'order_id' => $orderId,
-                    'product_id' => $item['product_id'],
-                    'quantity' => $item['quantity'],
-                    'price' => $item['price'],
-                ]);
-            }
-
-            $this->db->commit();
-            return $orderId;
-        } catch (Exception $e) {
-            $this->db->rollback();
-            error_log('Order creation failed: ' . $e->getMessage());
+        // Check if order was created successfully
+        if (!$orderId) {
+            error_log('Failed to create order record.');
             return false;
         }
+
+        // Insert ordered items
+        foreach ($cartItems as $item) {
+            $result = $this->db->table('ordered_items')->insert([
+                'order_id' => $orderId,
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+                'price' => $item['price'],
+            ]);
+
+            // Check if item insert was successful
+            if (!$result) {
+                error_log("Failed to insert item with product_id: {$item['product_id']} for order_id: $orderId.");
+                return false; // Return false if any item fails to insert
+            }
+        }
+
+        // All operations succeeded
+        return $orderId;
     }
 }
