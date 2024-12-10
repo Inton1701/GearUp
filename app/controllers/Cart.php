@@ -24,28 +24,9 @@ class Cart extends Controller
         }
     }
 
-    public function addBuild(){
-        $cart = $this->io->post('cart');
 
-        $requiredComponents = ['cpu', 'motherboard', 'ssd', 'hdd', 'ram', 'psu', 'case'];
-        
-        // Check if all required components are in the cart
-        $missingComponents = [];
 
-        foreach ($requiredComponents as $component) {
-            if (!isset($cart[$component]) || $cart[$component]['quantity'] < 1) {
-                $missingComponents[] = $component;
-            }
-        }
 
-        if (!empty($missingComponents)) {
-            echo json_encode(['status' => 'error', 'message' => 'Missing components: ' . implode(', ', $missingComponents)]);
-            return;
-        }
-
-        
-
-    }
     public function view_cart()
     {
         if ($this->io->is_ajax()) {
@@ -116,6 +97,8 @@ class Cart extends Controller
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Failed to remove item from cart.']);
             }
+
+            
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
         }

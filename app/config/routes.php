@@ -61,10 +61,17 @@ $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
-$router->get('/profile', 'Mainpage::profile');
 $router->get('/view-product', 'Mainpage::view');
-$router->get('/order', 'Mainpage::order');
-$router->get('/wishlist', 'Mainpage::wishlist');
+
+$router->get('/profile', 'Profile::profile');
+$router->get('/profile/get_user_data', 'Profile::get_user_data');
+$router->get('/order', 'Profile::order');
+$router->get('/wishlist', 'Profile::wishlist');
+$router->get('/address', 'Profile::address');
+$router->post('/profile/add_address', 'Profile::add_address');
+$router->get('/profile/get_user_addresses', 'Profile::get_user_addresses');
+$router->post('/profile/delete_address', 'Profile::delete_address');
+
 
 
 $router->group('admin/products', function () use ($router) {
@@ -76,6 +83,7 @@ $router->group('admin/products', function () use ($router) {
     $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']);
     $router->post('update', 'Products::update_product');
     $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']);
+    $router->get('view/{id}', 'Products::view_product');
 });
 
 $router->group('admin/category', function () use ($router) {

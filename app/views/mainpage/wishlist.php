@@ -16,21 +16,8 @@
             <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-picture">
             <div class="profile-info">
                 <div class="name d-flex align-items-center justify-content-left">
-                    <h1>John Doe</h1>
-                </div>
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-value">25</div>
-                        <div class="stat-label">Orders</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">4.8</div>
-                        <div class="stat-label">Rating</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">$1,250</div>
-                        <div class="stat-label">Total Spent</div>
-                    </div>
+                    <h1 id="first-name"></h1>
+                    <h1 id="last-name"></h1>
                 </div>
             </div>
         </div>
@@ -41,9 +28,7 @@
                     <li><a href="/profile"><i class="fas fa-user"></i> My Account</a></li>
                     <li><a href="/order"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                     <li><a href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
-                    <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="/address"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
                 </ul>
             </div>
             <div class="main-content">
@@ -73,9 +58,40 @@
                 </ul>
             </div>
         </div>
-    </main>
+        </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </body>
+<script>
+    $(document).ready(function() {
+        // Fetch user profile data
+        $.ajax({
+            url: '/profile/get_user_data',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const user = response.data;
+                    $('#first-name').text(user.first_name);
+                    $('#last-name').text(user.last_name);
+                    $('#email').text(user.email);
+                    $('#contact').text(user.contact); // Corrected field for address
+                    $('#birthdate').text(new Date(user.birthdate).toLocaleDateString());
+                } else {
+                    alert(response.message || 'Failed to fetch user data.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error Details:', xhr.responseText); // Log response for debugging
+                alert('An error occurred while fetching user data.');
+            }
+        });
+    });
+</script>
+
+
 
 </html>

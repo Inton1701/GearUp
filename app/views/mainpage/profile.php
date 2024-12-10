@@ -16,21 +16,8 @@
             <img src="https://via.placeholder.com/100" alt="Profile Picture" class="profile-picture">
             <div class="profile-info">
                 <div class="name d-flex align-items-center justify-content-left">
-                    <h1>John Doe</h1>
-                </div>
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-value">25</div>
-                        <div class="stat-label">Orders</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">4.8</div>
-                        <div class="stat-label">Rating</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">$1,250</div>
-                        <div class="stat-label">Total Spent</div>
-                    </div>
+                    <h1 id="first-name"></h1>
+                    <h1 id="last-name"></h1>
                 </div>
             </div>
         </div>
@@ -41,92 +28,80 @@
                     <li><a href="/profile"><i class="fas fa-user"></i> My Account</a></li>
                     <li><a href="/order"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
                     <li><a href="/wishlist"><i class="fas fa-heart"></i> Wishlist</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
-                    <li><a href="#"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="/address"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
                 </ul>
             </div>
             <div class="main-content">
-    <h2 class="section-title">My Profile</h2>
-    <p class="subtitle">Manage and protect your account</p>
-    
-    <div class="profile-form">
-        <div class="form-content">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" value="warendilay" disabled>
-                <span class="help-text">Username can only be changed once.</span>
-            </div>
-            
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text">
-            </div>
-            
-            <div class="form-group">
-                <label>Email</label>
-                <div class="email-group">
-                    <span>dj***********@gmail.com</span>
-                    <a href="#" class="change-link">Change</a>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Phone Number</label>
-                <div class="phone-group">
-                    <span>*********11</span>
-                    <a href="#" class="change-link">Change</a>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Gender</label>
-                <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="gender" value="male">
-                        <span>Male</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="gender" value="female">
-                        <span>Female</span>
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="gender" value="other">
-                        <span>Other</span>
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label>Date of birth</label>
-                <div class="date-group">
-                    <select class="date-select">
-                        <option>Date</option>
-                    </select>
-                    <select class="date-select">
-                        <option>Month</option>
-                    </select>
-                    <select class="date-select">
-                        <option>Year</option>
-                    </select>
-                </div>
-            </div>
-            
-            <button class="save-button">Save</button>
-        </div>
-        
-        <div class="avatar-section">
-            <div class="avatar-placeholder">
-                <img src="https://via.placeholder.com/150" alt="Profile Picture">
-            </div>
-            <button class="select-image-button">Select Image</button>
-            <p class="file-info">File size: maximum 1 MB</p>
-            <p class="file-info">File extension: .JPEG, .PNG</p>
-        </div>
-    </div>
-</div>
+                <h2 class="section-title">My Profile</h2>
+                <p class="subtitle">Manage and protect your account</p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+                <div class="avatar-section mb-3">
+                    <div class="avatar-placeholder">
+                        <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                    </div>
+                    <button class="select-image-button">Select Image</button>
+                </div>
+
+                <div class="profile-form">
+                    <div class="form-content">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <div class="email-group">
+                                <span id="email"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contact</label>
+                            <div class="contact-group">
+                                <span id="contact"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <div class="dob-group">
+                                <span id="birthdate"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </body>
+<script>
+    $(document).ready(function() {
+        // Fetch user profile data
+        $.ajax({
+            url: '/profile/get_user_data',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const user = response.data;
+                    $('#first-name').text(user.first_name);
+                    $('#last-name').text(user.last_name);
+                    $('#email').text(user.email);
+                    $('#contact').text(user.contact); // Corrected field for address
+                    $('#birthdate').text(new Date(user.birthdate).toLocaleDateString());
+                } else {
+                    alert(response.message || 'Failed to fetch user data.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error Details:', xhr.responseText); // Log response for debugging
+                alert('An error occurred while fetching user data.');
+            }
+        });
+    });
+</script>
+
+
 
 </html>

@@ -4,44 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/view.css" />
-    <title>Product</title>
+    <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <title><?= htmlspecialchars($product['product_name']); ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
+
 <div class="breadcrumb">
-        <a href="/">Home</a> > BlazeStorm Cooling Fan
+    <a href="/">Home</a> > <?= htmlspecialchars($product['product_name']); ?>
+</div>
+
+<main class="product-container">
+    <div class="product-gallery">
+        <img src="<?= base_url() . 'public/userdata/img/' . htmlspecialchars($product['image_path']); ?>" alt="<?= htmlspecialchars($product['product_name']); ?>" class="main-image">
     </div>
 
-    <main class="product-container">
-        <div class="product-gallery">
-            <img src="https://placehold.co/500x500" alt="BlazeStorm Cooling Fan" class="main-image">
-            <div class="thumbnail-container">
-                <img src="https://placehold.co/80x80" alt="Thumbnail 1" class="thumbnail">
-            </div>
-        </div>
+    <div class="product-info">
+        <h1><?= htmlspecialchars($product['product_name']); ?></h1>
+        <div class="price">₱<?= number_format($product['price'], 2); ?> PHP</div>
+        <button class="add-to-cart" data-id="<?= $product['product_id']; ?>">ADD TO CART</button>
+    </div>
+</main>
 
-        <div class="product-info">
-            <h1>BlazeStorm Cooling Fan</h1>
-            <div class="price">$29.99 USD</div>
-            <div class="stock-status">
-                🔥 HURRY! ONLY 7 LEFT IN STOCK
-            </div>
-            <div class="quantity-selector">
-                <input type="number" value="1" min="1" class="quantity-input">
-            </div>
-            <button class="add-to-cart">ADD TO CART</button>
-        </div>
-    </main>
-
-    <section class="tabs">
-        <div class="tab-buttons">
-            <button class="tab-button active">DESCRIPTION</button>
-        </div>
-        <div class="tab-content">
-            <p>Lorem ipsum dolor sit amet consectetur. Egestas leo a ornare risus leo ultricorper neque dictum arcu. At vel porta ut eget non risus nulla.</p>
-        </div>
-    </section>
-    <section class="comments-section">
+<section class="tabs">
+    <div class="tab-buttons">
+        <button class="tab-button active">DESCRIPTION</button>
+    </div>
+    <div class="tab-content">
+        <p><?= nl2br(htmlspecialchars($product['description'])); ?></p>
+    </div>
+</section>
+<section class="comments-section">
     <h2>Customer Reviews</h2>
     <div class="comment-form">
         <h3>Leave a Review</h3>
@@ -71,7 +65,7 @@
             </div>
             <button type="submit" class="submit-comment">Submit Review</button>
         </form>
-    </div>
+        </div>
     <div class="comments-list">
         <div class="comment">
             <div class="comment-header">
@@ -89,27 +83,54 @@
             <p class="comment-date">Posted on May 10, 2023</p>
             <p class="comment-content">Absolutely love this fan! It's quiet, efficient, and looks great. Perfect addition to my gaming room.</p>
         </div>
+</section>
+
+<!-- Related Products Section -->
+<section class="related-products">
+    <h2>Related Products</h2>
+    <div class="products-grid">
+        <?php if (!empty($related_products)): ?>
+            <?php foreach ($related_products as $related): ?>
+                <div class="product-card">
+                    <a href="<?= site_url('admin/products/view/' . $related['product_id']); ?>">
+                        <button class="wishlist-button">♡</button>
+                        <img src="<?= base_url() . 'public/userdata/img/' . htmlspecialchars($related['image_path']); ?>" alt="<?= htmlspecialchars($related['product_name']); ?>">
+                        <h3><?= htmlspecialchars($related['product_name']); ?></h3>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No related products found.</p>
+        <?php endif; ?>
     </div>
 </section>
-    <section class="related-products">
-        <h2>Related Products</h2>
-        <div class="products-grid">
-            <div class="product-card">
-                <button class="wishlist-button">♡</button>
-                <img src="https://placehold.co/200x200" alt="SteelGuard Wrist Rest">
-                <h3>SteelGuard Wrist Rest</h3>
-            </div>
-            <div class="product-card">
-                <button class="wishlist-button">♡</button>
-                <img src="https://placehold.co/200x200" alt="RazorFire Thumb Grips">
-                <h3>RazorFire Thumb Grips</h3>
-            </div>
-            <div class="product-card">
-                <button class="wishlist-button">♡</button>
-                <img src="https://placehold.co/200x200" alt="HyperVibe RGB Headset">
-                <h3>HyperVibe RGB Headset</h3>
-            </div>
-        </div>
-    </section>
+<script>
+      function viewProduct(productId) {
+    window.location.href = `<?= site_url('admin/products/view/'); ?>${productId}`;
+}
+$(document).on('click', '.add-to-cart', function(event) {
+        const productId = $(this).data('id');
+        $.ajax({
+            url: "<?= site_url('cart'); ?>",
+            type: "POST",
+            data: {
+                product_id: productId
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire('Success', 'Product added to cart!', 'success');
+                } else {
+                    Swal.fire('Error', response.message || 'Failed to add product to cart.', 'error');
+                }
+            },
+            error: function(xhr) {
+                console.error('AJAX Error:', xhr.responseText);
+                Swal.fire('Error', 'An unexpected error occurred.', 'error');
+            }
+        });
+    });
+
+</script>
 </body>
 </html>

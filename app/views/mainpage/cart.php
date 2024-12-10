@@ -55,7 +55,7 @@
         </div>
     </main>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // Function to load cart items
     function loadCartItems() {
@@ -114,11 +114,9 @@
         const parsedQuantity = parseInt(quantity, 10);
 
         if (isNaN(parsedQuantity) || parsedQuantity < 1) {
-            alert("Invalid quantity value.");
+            console.error("Invalid quantity value");
             return;
         }
-
-        console.log("Updating product:", productId, "with quantity:", parsedQuantity);
 
         $.ajax({
             url: '<?= site_url("cart/update") ?>',
@@ -132,7 +130,7 @@
                 if (response.status === 'success') {
                     loadCartItems(); // Refresh cart items
                 } else {
-                    alert(response.message);
+                    console.error('Error updating cart:', response.message);
                 }
             },
             error: function(xhr, status, error) {
@@ -141,7 +139,43 @@
         });
     }
 
-    // Handle quantity button click
+    // Function to remove cart item with SweetAlert confirmation
+    function removeCartItem(productId) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to undo this action!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= site_url("cart/remove") ?>',
+                    type: 'POST',
+                    data: {
+                        product_id: productId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            loadCartItems(); // Refresh cart items
+                            Swal.fire('Removed!', response.message, 'success');
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire('Error', 'Failed to remove the item. Please try again later.', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    // Event: Quantity button click
     $(document).on('click', '.quantity-btn', function() {
         const button = $(this);
         const input = button.siblings('.quantity-input');
@@ -163,7 +197,7 @@
         }
     });
 
-    // Handle manual quantity input
+    // Event: Manual quantity input change
     $(document).on('change', '.quantity-input', function() {
         const input = $(this);
         const productId = input.data('id');
@@ -177,34 +211,7 @@
         updateCartQuantity(productId, quantity);
     });
 
-    // Function to remove cart item
-    function removeCartItem(productId) {
-        if (!confirm("Are you sure you want to remove this item from your cart?")) {
-            return;
-        }
-
-        $.ajax({
-            url: '<?= site_url("cart/remove") ?>',
-            type: 'POST',
-            data: {
-                product_id: productId
-            },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    loadCartItems(); // Refresh cart items
-                    alert(response.message);
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', xhr.responseText);
-            }
-        });
-    }
-
-    // Handle Remove button click
+    // Event: Remove button click
     $(document).on('click', '.remove-btn', function() {
         const productId = $(this).data('id');
         removeCartItem(productId);

@@ -72,7 +72,18 @@ class Products_model extends Model {
         ->get_all();
     }
 
+    public function get_related_products($category_id, $exclude_product_id)
+    {
+        $query = $this->db->table('products as p')
+            ->where('p.category_id', $category_id)
+            ->not_where('p.product_id ', $exclude_product_id)
+            ->where_null('p.deleted_at');
+    
+        return $query->get_all();
+    }
+    
 
+    
 
 }   
 ?>
