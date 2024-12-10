@@ -390,14 +390,16 @@
             success: function(response) {
                 if (response.status === 'success') {
                     Swal.fire('Success', response.message, 'success').then(() => {
-                        location.reload(); // Reload or redirect after success
+                        location.reload();
                     });
                 } else {
                     Swal.fire('Error', response.message, 'error');
+                    console.error('Checkout failed:', response.message);
                 }
             },
             error: function(xhr, status, error) {
                 Swal.fire('Error', 'Failed to complete checkout.', 'error');
+                console.error('XHR Response:', xhr.responseText);
             }
         });
     });
