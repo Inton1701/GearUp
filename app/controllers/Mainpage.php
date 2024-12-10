@@ -30,11 +30,6 @@ class Mainpage extends Controller
         $this->call->view('mainpage/build');
     }
 
-    public function profile()
-    {
-        $this->call->view('mainpage/profile');
-    }
-
     public function view()
     {
         $this->call->view('mainpage/view-product');
