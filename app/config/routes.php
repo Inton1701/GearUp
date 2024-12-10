@@ -55,6 +55,9 @@ $router->post('/cart', 'Cart::add');
 $router->get('/cart', 'Cart::view_cart');
 $router->post('/cart/update', 'Cart::update_quantity');
 $router->post('/cart/remove', 'Cart::remove');
+$router->get('/checkout/addresses', 'Checkout::addresses');
+$router->post('/checkout/confirm', 'Checkout::confirm');
+
 
 $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');

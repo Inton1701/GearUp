@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - Shop</title>
+    <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/cart.css" />
     <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
 </head>
 
 <body>
@@ -34,6 +37,43 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Checkout Modal -->
+            <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Address Selection -->
+                            <h6>Select Address</h6>
+                            <div id="addressList">
+                                <!-- Addresses will be dynamically loaded here -->
+                            </div>
+
+                            <hr>
+
+                            <!-- Cart Summary -->
+                            <h6>Review Your Cart</h6>
+                            <div id="checkoutCartItems">
+                                <!-- Cart items will be dynamically loaded here -->
+                            </div>
+
+                            <div class="text-end mt-3">
+                                <h5>Total: <span id="checkoutTotal">₱0.00</span></h5>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="confirmCheckoutBtn">Confirm Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="checkout-bar">
                 <div class="shipping-info">
                     <span class="shipping-label">Shipping</span>
@@ -51,11 +91,17 @@
                     CHECKOUT
                 </button>
             </div>
-
         </div>
     </main>
 </body>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js (required for Bootstrap modals) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     // Function to load cart items
     function loadCartItems() {
@@ -220,6 +266,140 @@
     // Initial cart load
     $(document).ready(function() {
         loadCartItems();
+    });
+
+    // Open Checkout Modal
+    $(document).on('click', '.add-to-cart-btn', function() {
+        $('#checkoutModal').modal('show');
+        loadCheckoutDetails(); // Load cart items and addresses
+    });
+
+    // Function to load checkout details
+    function loadCheckoutDetails() {
+        // Load addresses
+        $.ajax({
+            url: '<?= site_url("checkout/addresses") ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    let addresses = response.data;
+                    let addressHTML = '';
+                    addresses.forEach(address => {
+                        addressHTML += `
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="selectedAddress" id="address-${address.address_id}" value="${address.address_id}">
+                            <label class="form-check-label" for="address-${address.address_id}">
+                                ${address.house_no}, ${address.street}, ${address.City}, ${address.Province}
+                            </label>
+                        </div>`;
+                    });
+                    $('#addressList').html(addressHTML);
+                } else {
+                    $('#addressList').html('<p class="text-danger">No saved addresses found. Add one first!</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading addresses:', xhr.responseText);
+            }
+        });
+
+        // Load cart items
+        $.ajax({
+            url: '<?= site_url("cart") ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    let cartItems = response.data;
+                    let cartHTML = '';
+                    let total = 0;
+                    cartItems.forEach(item => {
+                        total += parseFloat(item.total_price);
+                        cartHTML += `
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <strong>${item.product_name}</strong><br>
+                                <small>₱${parseFloat(item.price).toFixed(2)} x ${item.quantity}</small>
+                            </div>
+                            <div>
+                                ₱${parseFloat(item.total_price).toFixed(2)}
+                                <button class="btn btn-sm btn-danger ms-2 remove-checkout-item" data-id="${item.product_id}">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>`;
+                    });
+                    $('#checkoutCartItems').html(cartHTML);
+                    $('#checkoutTotal').text(`₱${total.toFixed(2)}`);
+                } else {
+                    $('#checkoutCartItems').html('<p class="text-danger">No items in the cart to checkout.</p>');
+                    $('#checkoutTotal').text('₱0.00');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading checkout cart:', xhr.responseText);
+            }
+        });
+    }
+
+    // Remove an item from checkout (doesn't update the main cart)
+    $(document).on('click', '.remove-checkout-item', function() {
+        $(this).closest('div').remove();
+        // Recompute total
+        let total = 0;
+        $('#checkoutCartItems .d-flex').each(function() {
+            let itemTotal = parseFloat($(this).find('div:last-child').text().replace('₱', ''));
+            total += itemTotal;
+        });
+        $('#checkoutTotal').text(`₱${total.toFixed(2)}`);
+    });
+
+    $(document).on('click', '#confirmCheckoutBtn', function() {
+        const addressId = $('input[name="selectedAddress"]:checked').val();
+        if (!addressId) {
+            Swal.fire('Error', 'Please select an address.', 'error');
+            return;
+        }
+
+        const cartItems = [];
+        $('#checkoutCartItems .d-flex').each(function() {
+            const productId = $(this).find('.remove-checkout-item').data('id');
+            const quantity = parseInt($(this).find('small').text().match(/\d+/)[0]);
+            const price = parseFloat($(this).find('small').text().match(/₱([\d.]+)/)[1]);
+            cartItems.push({
+                product_id: productId,
+                quantity,
+                price
+            });
+        });
+
+        if (cartItems.length === 0) {
+            Swal.fire('Error', 'No items in the cart to checkout.', 'error');
+            return;
+        }
+
+        $.ajax({
+            url: '<?= site_url("checkout/confirm") ?>',
+            type: 'POST',
+            data: {
+                address_id: addressId,
+                cart_items: JSON.stringify(cartItems), // Properly encode the array
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire('Success', response.message, 'success').then(() => {
+                        location.reload(); // Reload or redirect after success
+                    });
+                } else {
+                    Swal.fire('Error', response.message, 'error');
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire('Error', 'Failed to complete checkout.', 'error');
+            }
+        });
     });
 </script>
 
