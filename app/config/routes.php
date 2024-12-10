@@ -70,7 +70,7 @@ $router->get('/wishlist', 'Profile::wishlist');
 $router->get('/address', 'Profile::address');
 $router->post('/profile/add_address', 'Profile::add_address');
 $router->get('/profile/get_user_addresses', 'Profile::get_user_addresses');
-
+$router->post('/profile/delete_address', 'Profile::delete_address');
 
 
 
