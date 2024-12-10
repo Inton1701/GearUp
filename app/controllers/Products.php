@@ -210,5 +210,24 @@ class Products extends Controller
                 ]
             ]);
         }
+    }   
+
+
+public function view_product($id)
+{
+    // Fetch the product details using the model
+    $product = $this->products_model->get_one_product($id);
+
+    if ($product) {
+        // Render the view product page with the product details
+        $this->call->view('mainpage/view-product', ['product' => $product]);
+    } else {
+        // If the product is not found, show a 404 error page
+        $this->call->view('errors/error_404');
     }
+}
+
+
+    
+
 }

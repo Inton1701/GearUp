@@ -62,7 +62,7 @@
 
                         const productCard = `
                         <div class="col-md-4 col-lg-3 mt-3">
-                            <div class="product-card h-100">
+                            <div class="product-card h-100" data-id="${product.product_id}" onclick="viewProduct(${product.product_id})">
                                 <div class="product-image">
                                     <img src="<?= base_url(); ?>public/userdata/img/${product.image_path}" alt="${product.product_name}">
                                 </div>
@@ -243,6 +243,11 @@
         }
     }
 
+    function viewProduct(productId) {
+    window.location.href = `<?= site_url('admin/products/view/'); ?>${productId}`;
+}
+
+
     $(document).on('click', '.add-to-cart', function() {
         const productId = $(this).data('id');
         $.ajax({
@@ -265,6 +270,7 @@
             }
         });
     });
+
 
 
 

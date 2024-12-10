@@ -76,6 +76,7 @@ $router->group('admin/products', function () use ($router) {
     $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']);
     $router->post('update', 'Products::update_product');
     $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']);
+    $router->get('view/{id}', 'Products::view_product'); 
 });
 
 $router->group('admin/category', function () use ($router) {

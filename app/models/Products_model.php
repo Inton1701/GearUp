@@ -72,7 +72,5 @@ class Products_model extends Model {
         ->get_all();
     }
 
-
-
 }   
 ?>
