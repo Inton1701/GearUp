@@ -213,7 +213,7 @@ class Products extends Controller
     }   
 
 
-public function view_product($id)
+public function viewProduct($id)
 {
     // Fetch the product details using the model
     $product = $this->products_model->get_one_product($id);
@@ -226,6 +226,33 @@ public function view_product($id)
         $this->call->view('errors/error_404');
     }
 }
+
+public function view_product($id)
+{
+    $product = $this->products_model->get_one_product($id);
+
+    if ($product) {
+        $categories = $this->products_model->get_categories();
+        $brands = $this->products_model->get_brands();
+
+        // Fetch related products
+        $related_products = $this->products_model->get_related_products($product['category_id'], $id);
+
+        $data = [
+            'product' => $product,
+            'categories' => $categories,
+            'brands' => $brands,
+            'related_products' => $related_products,
+        ];
+
+        // Load the view and pass data
+        $this->call->view('mainpage/view-product', $data);
+    } else {
+        // Redirect or show a 404 page if the product does not exist
+        show_404();
+    }
+}
+
 
 
     

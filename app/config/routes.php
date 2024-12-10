@@ -80,6 +80,8 @@ $router->group('admin/products', function () use ($router) {
     $router->post('update', 'Products::update_product');
     $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']);
     $router->get('view/{id}', 'Products::view_product'); 
+    $router->get('view/{id}', 'Products::viewProduct');
+
 });
 
 $router->group('admin/category', function () use ($router) {

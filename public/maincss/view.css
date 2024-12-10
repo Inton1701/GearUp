@@ -72,7 +72,7 @@ nav {
 }
 
 .breadcrumb a {
-    color: #33ff33;
+    color: #4CAF50;
     text-decoration: none;
 }
 
@@ -107,7 +107,7 @@ nav {
 .thumbnail {
     width: 80px;
     height: 80px;
-    border: 2px solid #33ff33;
+    border: 2px solid #4CAF50;
     border-radius: 4px;
     padding: 0.5rem;
     cursor: pointer;
@@ -154,7 +154,7 @@ nav {
 .add-to-cart {
     width: 100%;
     padding: 1rem;
-    background-color: #33ff33;
+    background-color: #4CAF50;
     color: #000;
     border: none;
     border-radius: 4px;
@@ -198,7 +198,7 @@ nav {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #33ff33;
+    background-color: #4CAF50;
 }
 
 /* Related Products */
@@ -289,7 +289,7 @@ nav {
 }
 
 .submit-comment {
-    background-color: #33ff33;
+    background-color: #4CAF50;
     color: #000;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -328,7 +328,7 @@ nav {
 }
 
 .rating {
-    color: #33ff33;
+    color: #4CAF50;
 }
 
 .comment-date {
@@ -339,4 +339,12 @@ nav {
 
 .comment-content {
     line-height: 1.6;
+}
+
+h3{
+    color: #4CAF50;
+}
+
+.related-products .products-grid .product-card a {
+    text-decoration: none;
 }

@@ -62,7 +62,7 @@
 
                         const productCard = `
                         <div class="col-md-4 col-lg-3 mt-3">
-                            <div class="product-card h-100" data-id="${product.product_id}" onclick="viewProduct(${product.product_id})">
+                            <div class="product-card h-100" data-id="${product.product_id}">
                                 <div class="product-image">
                                     <img src="<?= base_url(); ?>public/userdata/img/${product.image_path}" alt="${product.product_name}">
                                 </div>
@@ -83,13 +83,17 @@
                     `;
                         productContainer.append(productCard);
                     });
-
+                    $('.product-card').on('click', function(event) {
+                        if (!$(event.target).hasClass('add-to-cart')) {
+                            const productId = $(this).data('id');
+                            viewProduct(productId);
+                        }
+                    });
                 } else {
                     $('#product-grid').html('<p class="text-center">No products available.</p>');
                 }
             },
             error: function(xhr, status, error) {
-                console.error("AJAX Error:", xhr.responseText);
                 Swal.fire('Error', 'An error occurred while loading products.', 'error');
             }
         });
@@ -243,12 +247,16 @@
         }
     }
 
-    function viewProduct(productId) {
-    window.location.href = `<?= site_url('admin/products/view/'); ?>${productId}`;
-}
+    $(document).on('click', '.product-card', function() {
+    const productId = $(this).data('id');
+    viewProduct(productId);
+});
 
 
-    $(document).on('click', '.add-to-cart', function() {
+
+    $(document).on('click', '.add-to-cart', function(event) {
+        event.preventDefault(); // Prevent default behavior
+        event.stopPropagation(); // Stop event bubbling to parent elements
         const productId = $(this).data('id');
         $.ajax({
             url: "<?= site_url('cart'); ?>",
@@ -272,6 +280,9 @@
     });
 
 
+    function viewProduct(productId) {
+    window.location.href = `<?= site_url('admin/products/view/'); ?>${productId}`;
+}
 
 
     $(document).ready(function () {
