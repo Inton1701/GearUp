@@ -93,6 +93,52 @@
             }
         });
     });
+
+    $(document).ready(function() {
+        // Fetch recent orders
+        $.ajax({
+            url: '/checkout/get_recent_orders',
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    const orders = response.data;
+                    const orderList = $('.order-list');
+                    orderList.empty(); // Clear existing orders
+
+                    orders.forEach(order => {
+                        const products = order.products.map(p => `
+                        <li>${p.product_name}</li>
+                    `).join('');
+
+                        orderList.append(`
+<li class="order-item">
+    <div class="order-header">
+        <h3>Order #${order.order_id}</h3>
+        <span class="order-status">Status: ${order.status}</span>
+    </div>
+    <div class="order-details">
+        <ul class="product-list">
+            ${products}
+        </ul>
+        <div class="order-total">
+            <span>Total Price: $${parseFloat(order.total_price).toFixed(2)}</span>
+        </div>
+    </div>
+</li>
+
+                    `);
+                    });
+                } else {
+                    alert(response.message || 'Failed to fetch orders.');
+                }
+            },
+            error: function(xhr) {
+                console.error('Error fetching orders:', xhr.responseText);
+                alert('An error occurred while fetching orders.');
+            }
+        });
+    });
 </script>
 
 

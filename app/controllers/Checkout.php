@@ -55,4 +55,21 @@ class Checkout extends Controller
             echo json_encode(['status' => 'error', 'message' => 'Failed to place order.']);
         }
     }
+
+    public function get_recent_orders()
+    {
+        $userId = $this->session->userdata('user_id'); // Ensure the user is logged in
+        if (!$userId) {
+            echo json_encode(['success' => false, 'message' => 'User not logged in.']);
+            return;
+        }
+
+        $orders = $this->checkout_model->get_user_orders($userId);
+
+        if ($orders) {
+            echo json_encode(['success' => true, 'data' => $orders]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'No orders found.']);
+        }
+    }
 }

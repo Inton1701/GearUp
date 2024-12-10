@@ -57,6 +57,8 @@ $router->post('/cart/update', 'Cart::update_quantity');
 $router->post('/cart/remove', 'Cart::remove');
 $router->get('/checkout/addresses', 'Checkout::addresses');
 $router->post('/checkout/confirm', 'Checkout::confirm');
+$router->get('/checkout/get_recent_orders', 'Checkout::get_recent_orders');
+
 
 
 $router->get('/admin', 'Dashboard::dashboard');

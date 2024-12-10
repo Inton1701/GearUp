@@ -49,4 +49,25 @@ class Checkout_model extends Model
         // All operations succeeded
         return $orderId;
     }
+
+    public function get_user_orders($userId)
+    {
+        // Fetch orders
+        $orders = $this->db->table('orders')
+            ->select('orders.order_id, orders.status, orders.total_price, orders.created_at')
+            ->where('orders.user_id', $userId)
+            ->order_by('orders.created_at', 'DESC')
+            ->get_all();
+
+        foreach ($orders as &$order) {
+            // Fetch associated products for each order using order_id
+            $order['products'] = $this->db->table('ordered_items')
+                ->select('ordered_items.quantity, ordered_items.price, products.product_name')
+                ->join('products', 'products.product_id = ordered_items.product_id') // Use product_id for join
+                ->where('ordered_items.order_id', $order['order_id']) // Use order_id
+                ->get_all();
+        }
+
+        return $orders;
+    }
 }
