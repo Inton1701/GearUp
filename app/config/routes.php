@@ -61,13 +61,15 @@ $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
+$router->get('/view-product', 'Mainpage::view');
 
 $router->get('/profile', 'Profile::profile');
 $router->get('/profile/get_user_data', 'Profile::get_user_data');
-
-$router->get('/view-product', 'Mainpage::view');
-$router->get('/order', 'Mainpage::order');
-$router->get('/wishlist', 'Mainpage::wishlist');
+$router->get('/order', 'Profile::order');
+$router->get('/wishlist', 'Profile::wishlist');
+$router->get('/address', 'Profile::address');
+$router->post('/profile/add_address', 'Profile::add_address');
+$router->get('/profile/get_user_addresses', 'Profile::get_user_addresses');
 
 
 $router->group('admin/products', function () use ($router) {
