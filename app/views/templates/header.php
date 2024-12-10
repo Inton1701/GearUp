@@ -24,24 +24,3 @@
 
 <link rel="stylesheet" href="<?= base_url(); ?>public/assets/fontawesome/css/all.min.css" />
 
-<style>
-    /* Custom styles for SweetAlert */
-.swal2-popup {
-    background-color: #333333; /* Dark background color */
-    color: #FFFFFF;            /* White text color */
-}
-
-.swal2-title {
-    color: #FFD700; /* Custom gold color for the title */
-}
-
-.swal2-confirm {
-    background-color: #4CAF50; /* Custom green for the button */
-    color: white;              /* Text color for the button */
-}
-
-.swal2-cancel {
-    background-color: #F44336; /* Custom red for the cancel button */
-    color: white;              /* Text color for the cancel button */
-}
-</style>

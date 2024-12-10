@@ -568,60 +568,67 @@
             updateProgressBar();
 
             $('#addToCartBtn').on('click', function() {
+    const requiredComponents = ['cpu', 'motherboard', 'ssd', 'hdd', 'ram', 'psu', 'case'];
+    const missingComponents = [];
 
-                const requiredComponents = ['cpu', 'motherboard', 'ssd', 'hdd', 'ram', 'psu', 'case'];
-                const missingComponents = [];
+    requiredComponents.forEach(component => {
+        if (!selectedComponents[component]) {
+            missingComponents.push(component);
+        }
+    });
 
-                requiredComponents.forEach(component => {
-                    if (!selectedComponents[component]) {
-                        missingComponents.push(component);
-                    }
-                });
-
-                if (missingComponents.length > 0) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Missing Components',
-                        text: 'Please select the following components: ' + missingComponents.join(', '),
-                        confirmButtonText: 'OK'
-                    });
-                } else {
-                    // Send cart data to backend for validation
-                    $.ajax({
-                        url: '/validate-cart', 
-                        type: 'POST',
-                        data: {
-                            cart: cart, // Send the entire cart object
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'All components selected',
-                                    text: 'Your build is ready to be added to the cart!',
-                                    confirmButtonText: 'OK'
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Cart Validation Failed',
-                                    text: response.message, // Show the message from the backend
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'An error occurred while validating the cart. Please try again.',
-                                confirmButtonText: 'OK'
-                            });
-                        }
-                    });
-                }
-
+    if (missingComponents.length > 0) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Missing Components',
+            text: 'Please select the following components: ' + missingComponents.map(component => component.charAt(0).toUpperCase() + component.slice(1)).join(', '),
+            confirmButtonText: 'OK'
+        });
+    } else {
+        // Prepare the cart data for backend
+        const cartArray = Object.entries(cart).map(([productId, item]) => ({
+    productId: parseInt(productId), // Convert productId to integer
+    productName: item.productName,
+    quantity: item.quantity
+}));
+        $.ajax({
+    url: "<?= site_url('build/add') ?>",
+    type: 'POST',
+    contentType: 'application/json', 
+    dataType: "json",
+    data:  JSON.stringify({ cart: cartArray }),
+    success: function(response) {
+        if (response.status === 'success') {
+    
+            Swal.fire({
+                icon: 'success',
+                title: 'Build Creation Success',
+                text: response.message,
+                confirmButtonText: 'OK',
             });
+        } else if(response.status === 'error') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Build Validation Failed',
+                text: response.message,
+                confirmButtonText: 'OK',
+            });
+        }
+       
+    },
+    error: function(xhr) {
+        console.error(xhr.responseText);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Something went wrong on the server!',
+            confirmButtonText: 'OK',
+        });
+    },
+});
+    }
+});
+
 
         });
     </script>

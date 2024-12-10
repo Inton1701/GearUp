@@ -120,3 +120,7 @@ $router->group('user', function () use ($router) {
 $router->group('products', function () use ($router) {
     $router->get('fetch_products_by_category/{category}', 'Products::get_product_by_categories');
 });
+
+$router->group('build', function () use ($router) {
+    $router->match('add', 'BUild::add_build', ['POST', 'GET']);
+});
