@@ -824,4 +824,48 @@ button.list-group-item:hover {
         color: #4CAF50;
     }
 
+.order-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px 0;
+    position: relative;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+
+.order-details {
+    margin-top: 10px;
+}
+
+.product-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.order-total {
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.address-item {
+    margin-left: 10px;
+}
+
+.address-details span {
+    display: block; /* Makes each span take up its own line */
+    margin-left: 12px; /* Adds space between the address fields */
+}
+
+.delete-address {
+    margin-left: 10px; /* Adds space between the address and the delete button */
+}
 
