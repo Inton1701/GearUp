@@ -43,24 +43,24 @@ class User extends Controller
             $contact = $this->io->post('contact');
             $password = $this->io->post('password');
             $birthdate = $this->io->post('birthdate');
-        
-            
-                $image_path = null;
-                if (isset($_FILES['user_profile']) && $_FILES['user_profile']['error'] === UPLOAD_ERR_OK) {
-                    $upload = new Upload($_FILES['user_profile']);
-                    $upload->set_dir('./public/userdata/img/')
-                           ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
-                           ->encrypt_name();
-        
-                    if ($upload->do_upload()) {
-                        $image_path = $upload->get_filename();
-                    } 
+
+
+            $image_path = null;
+            if (isset($_FILES['user_profile']) && $_FILES['user_profile']['error'] === UPLOAD_ERR_OK) {
+                $upload = new Upload($_FILES['user_profile']);
+                $upload->set_dir('./public/userdata/img/')
+                    ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
+                    ->encrypt_name();
+
+                if ($upload->do_upload()) {
+                    $image_path = $upload->get_filename();
                 }
+            }
 
             // Insert user into the database with image path
             if ($this->user_model->create_user(
                 $first_name,
-                $last_name, 
+                $last_name,
                 $email,
                 $contact,
                 $birthdate,
@@ -72,7 +72,6 @@ class User extends Controller
                     'status' => 'success',
                     'message' => 'Registration successful'
                 ]);
-         
             } else {
                 // Handle the failure and redirect to the add user page
                 echo json_encode([
@@ -80,61 +79,61 @@ class User extends Controller
                     'message' => 'Failed to register'
                 ]);
             }
-
-
-
         }
     }
 
-    
-    public function check_email(){
-        if($this->form_validation->submitted()) {
-        $email = $this->io->post('email');
-        $exist = $this->user_model->check_credentials($email);
-        if (!$exist) {
-            echo json_encode([
-                'status' => 'success',
-            ]);
-        } else {
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Email Address Already Exists',
-            ]);
-        }
-    }
-    }
-    public function verify_user(){
-        if($this->form_validation->submitted()) {
-        $email = $this->io->post('email');
-        $password = $this->io->post('password');
 
-        $user = $this->user_model->check_credentials($email);
+    public function check_email()
+    {
+        if ($this->form_validation->submitted()) {
+            $email = $this->io->post('email');
+            $exist = $this->user_model->check_credentials($email);
+            if (!$exist) {
+                echo json_encode([
+                    'status' => 'success',
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Email Address Already Exists',
+                ]);
+            }
+        }
+    }
+    public function verify_user()
+    {
+        if ($this->form_validation->submitted()) {
+            $email = $this->io->post('email');
+            $password = $this->io->post('password');
 
-        if(!$user){
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Email Address not found'
-            ]);
-            return;
-        }
-        if (password_verify($password, $user['password'])) {
-            // Successful login
-            echo json_encode([
-                'status' => 'success',
-                'message' => 'Login successful'
-            ]);
-            $this->session->set_userdata('user_id',$user['user_id']);
-        } else {
-            // Incorrect password
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Incorrect password'
-            ]);
+            $user = $this->user_model->check_credentials($email);
+
+            if (!$user) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Email Address not found'
+                ]);
+                return;
+            }
+            if (password_verify($password, $user['password'])) {
+                // Successful login
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => 'Login successful'
+                ]);
+                $this->session->set_userdata('user_id', $user['user_id']);
+            } else {
+                // Incorrect password
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Incorrect password'
+                ]);
+            }
         }
     }
-    }
-    public function logout_user(){
-        $this->session->unset_userdata(); 
+    public function logout_user()
+    {
+        $this->session->unset_userdata();
     }
 
     public function add_user()
@@ -149,23 +148,23 @@ class User extends Controller
             $role = $this->io->post('role');
 
 
-            
-                $image_path = null;
-                if (isset($_FILES['user_profile']) && $_FILES['user_profile']['error'] === UPLOAD_ERR_OK) {
-                    $upload = new Upload($_FILES['user_profile']);
-                    $upload->set_dir('./public/userdata/img/')
-                           ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
-                           ->encrypt_name();
-        
-                    if ($upload->do_upload()) {
-                        $image_path = $upload->get_filename();
-                    } 
+
+            $image_path = null;
+            if (isset($_FILES['user_profile']) && $_FILES['user_profile']['error'] === UPLOAD_ERR_OK) {
+                $upload = new Upload($_FILES['user_profile']);
+                $upload->set_dir('./public/userdata/img/')
+                    ->allowed_extensions(['jpg', 'jpeg', 'png', 'gif'])
+                    ->encrypt_name();
+
+                if ($upload->do_upload()) {
+                    $image_path = $upload->get_filename();
                 }
+            }
 
             // Insert user into the database with image path
             if ($this->user_model->create_user(
                 $first_name,
-                $last_name, 
+                $last_name,
                 $email,
                 $contact,
                 $birthdate,
@@ -184,12 +183,11 @@ class User extends Controller
                     'message' => 'Failed to add brand'
                 ]);
             }
-
         }
     }
     public function get_user($id)
     {
-       $user = $this->user_model->get_one_user($id);
+        $user = $this->user_model->get_one_user($id);
         if ($user) {
             echo json_encode([
                 'status' => 'success',
@@ -207,13 +205,13 @@ class User extends Controller
     {
         if ($this->form_validation->submitted()) {
             $user_id = $this->io->post('user_id');
-           $role = $this->io->post('user_role');
-           $status = $this->io->post('user_status');
+            $role = $this->io->post('user_role');
+            $status = $this->io->post('user_status');
             if ($this->user_model->update_users(
-                    $user_id,
-                    $role,
-                    $status                
-                )) {
+                $user_id,
+                $role,
+                $status
+            )) {
                 echo json_encode([
                     'status' => 'success',
                     'message' => 'User was successfully updated'

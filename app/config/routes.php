@@ -61,7 +61,10 @@ $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/home', 'Mainpage::home');
 $router->get('/build', 'Mainpage::build');
-$router->get('/profile', 'Mainpage::profile');
+
+$router->get('/profile', 'Profile::profile');
+$router->get('/profile/get_user_data', 'Profile::get_user_data');
+
 $router->get('/view-product', 'Mainpage::view');
 $router->get('/order', 'Mainpage::order');
 $router->get('/wishlist', 'Mainpage::wishlist');
