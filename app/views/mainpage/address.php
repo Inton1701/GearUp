@@ -121,46 +121,7 @@
         $('#add-address-btn').click(function() {
             $('#addressModal').modal('show');
         });
-    });
 
-    $(document).ready(function() {
-        // Show modal on button click
-        $('#add-address-btn').click(function() {
-            $('#addressModal').modal('show');
-        });
-
-        // Save address on modal submission
-        $('#save-address-btn').click(function() {
-            const addressData = {
-                house_no: $('#house_no').val(),
-                street: $('#street').val(),
-                city: $('#city').val(),
-                province: $('#province').val()
-            };
-
-            $.ajax({
-                url: '/profile/add_address', // Backend endpoint for adding addresses
-                method: 'POST',
-                dataType: 'json',
-                data: addressData,
-                success: function(response) {
-                    if (response.success) {
-                        alert('Address added successfully!');
-                        $('#addressModal').modal('hide');
-                        location.reload(); // Refresh to show the updated address list
-                    } else {
-                        alert(response.message || 'Failed to add address.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error Details:', xhr.responseText); // Log response for debugging
-                    alert('An error occurred while adding the address.');
-                }
-            });
-        });
-    });
-
-    $(document).ready(function() {
         // Fetch and display all addresses
         function loadAddresses() {
             $.ajax({
@@ -196,6 +157,41 @@
                 }
             });
         }
+
+        // Show modal on button click
+        $('#add-address-btn').click(function() {
+            $('#addressModal').modal('show');
+        });
+
+        // Save address on modal submission
+        $('#save-address-btn').click(function() {
+            const addressData = {
+                house_no: $('#house_no').val(),
+                street: $('#street').val(),
+                city: $('#city').val(),
+                province: $('#province').val()
+            };
+
+            $.ajax({
+                url: '/profile/add_address', // Backend endpoint for adding addresses
+                method: 'POST',
+                dataType: 'json',
+                data: addressData,
+                success: function(response) {
+                    if (response.success) {
+                        alert('Address added successfully!');
+                        $('#addressModal').modal('hide');
+                        location.reload(); // Refresh to show the updated address list
+                    } else {
+                        alert(response.message || 'Failed to add address.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error Details:', xhr.responseText); // Log response for debugging
+                    alert('An error occurred while adding the address.');
+                }
+            });
+        });
 
         // Initial load
         loadAddresses();
