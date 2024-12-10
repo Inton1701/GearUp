@@ -35,9 +35,9 @@
                 <h2 class="section-title">My Profile</h2>
                 <p class="subtitle">Manage and protect your account</p>
 
-                <div class="avatar-section mb-3">
-                    <div class="avatar-placeholder">
-                        <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                <div class="avatar-section">
+                    <div class="avatar-placeholder p-0">
+                        <img src="https://via.placeholder.com/150"  alt="Profile Picture">
                     </div>
                     <button class="select-image-button">Select Image</button>
                 </div>
@@ -85,6 +85,13 @@
             success: function(response) {
                 if (response.success) {
                     const user = response.data;
+                    const imageSrc = user.profile_pic && user.profile_pic.trim() !== '' ? 
+                                 `<?= base_url(); ?>public/userdata/img/${user.profile_pic}` : 
+                                 "<?= base_url(); ?>public/userdata/img/no-profile.jpg";
+
+                     // Update profile-header and avatar-section images
+                $('.profile-header .profile-picture').attr('src', imageSrc);
+                $('.avatar-placeholder img').attr('src', imageSrc);
                     $('#first-name').text(user.first_name);
                     $('#last-name').text(user.last_name);
                     $('#email').text(user.email);

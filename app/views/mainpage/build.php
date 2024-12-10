@@ -208,7 +208,7 @@
                     <span id="totalPrice"> ₱0.00</span>
                 </div>
             </div>
-            <button id="addToCartBtn" class="btn btn-success">Add to Cart</button>
+            <button id="addToCartBtn" class="btn btn-success" id="addCafr">Add to Cart</button>
         </div>
     </div>
 
@@ -259,13 +259,13 @@
             };
             const componentMapping = {
                 processor: 'cpu',
-                motherboard: 'motherboard',
-                'solid-state-drive': 'ssd',
+                'solid-state-drive': 'ssd', 
                 'hard-disk-drive': 'hdd',
                 'graphics-card': 'gpu',
                 'power-supply': 'psu',
-                ram: 'ram',
-                case: 'case'
+                motherboard: 'motherboard',
+                case: 'case',
+                ram: 'ram'
             };
 
 
@@ -283,52 +283,47 @@
             const selectedComponents = {};
 
             function updateBuildStats() {
-                // Calculate average data storage performance
-                const dataStorageAvg = (
-                    (performanceCategories.ssd > 0 ? performanceCategories.ssd : 0) +
-                    (performanceCategories.hdd > 0 ? performanceCategories.hdd : 0)
-                ) / (performanceCategories.ssd > 0 && performanceCategories.hdd > 0 ? 2 : 1);
-                radarChartData.datasets[0].data = [
-                    performanceCategories.cpu,
-                    dataStorageAvg || 0,
-                    performanceCategories.gpu,
-                    performanceCategories.psu,
-                    performanceCategories.ram,
-                ];
+            const dataStorageAvg = (
+                (performanceCategories.ssd || 0) +
+                (performanceCategories.hdd || 0)
+            ) / (performanceCategories.ssd && performanceCategories.hdd ? 2 : 1);
 
-                radarChart.update();
-            }
+            radarChartData.datasets[0].data = [
+                performanceCategories.cpu,
+                dataStorageAvg || 0,
+                performanceCategories.gpu,
+                performanceCategories.psu,
+                performanceCategories.ram,
+            ];
+
+            radarChart?.update();
+        }
 
 
-            function updateProgressBar() {
-                const totalStats = Object.values(performanceCategories).reduce((a, b) => a + b, 0);
-                const selectedCount = Object.values(performanceCategories).filter(v => v > 0).length;
+             // Function to update progress bar
+        function updateProgressBar() {
+            const totalStats = Object.values(performanceCategories).reduce((sum, val) => sum + val, 0);
+            const selectedCount = Object.values(performanceCategories).filter(val => val > 0).length;
+            const average = selectedCount > 0 ? totalStats / selectedCount : 0;
+            const progressPercent = Math.min((average / 100) * 100, 100);
 
-                const average = selectedCount > 0 ? totalStats / selectedCount : 0;
-                const progressPercent = Math.min((average / 100) * 100, 100);
-
-                $('#progressBar').css('width', `${progressPercent}%`);
-                $('#cursor').css('left', `${progressPercent}%`);
-            }
+            $('#progressBar').css('width', `${progressPercent}%`);
+            $('#cursor').css('left', `${progressPercent}%`);
+        }
 
             $('.select-button').on('click', function() {
-                const componentType = $(this).data('component'); // Get the component type (e.g., 'motherboard', 'gpu')
-                const performanceLabel = $(this).data('performance').toLowerCase(); // Get performance label (e.g., 'high', 'low')
-                const performanceValue = performanceMap[performanceLabel] || 0; // Map performance label to value (default to 0 if not found)
+                const componentType = $(this).data('component');
+                const performanceLabel = $(this).data('performance').toLowerCase();
+                const performanceValue = performanceMap[performanceLabel] || 0;
 
-
-
-
-                // If the component is SSD or HDD, store the performance value in the performanceCategories object
+                console.log("Selected Component: ", componentType, "Performance Label: ", performanceLabel, "Performance Value: ", performanceValue);
                 if (componentType === 'ssd' || componentType === 'hdd') {
-                    performanceCategories[componentType] = performanceValue;
+                    performanceCategories[componentType] = performanceValue; // Ensure the value is updated for both SSD and HDD
                 }
 
-                // Update stats and progress bar (assuming these functions are implemented elsewhere)
                 updateBuildStats();
                 updateProgressBar();
             });
-
             let cart = {}; // Cart object
 
             // Update the cart summary
@@ -370,95 +365,96 @@
             $('#chipsetFilter, #modelFilter').on('change', filterProducts);
             $('#searchInput').on('input', filterProducts);
 
-            // Component Selection
             $('.list-group-item-action').on('click', function() {
-                const selectedCategory = $(this).data('category');
-                const selectedComponent = $(this).data('component');
+            const selectedCategory = $(this).data('category');
+            const selectedComponent = $(this).data('component');
 
-                // Add green border when clicked
-                $('.list-group-item-action').removeClass('border-success').addClass('border-dark');
-                $(this).removeClass('border-dark').addClass('border-success');
+            // Highlight selected component
+            $('.list-group-item-action').removeClass('border-success').addClass('border-dark');
+            $(this).removeClass('border-dark').addClass('border-success');
 
-                // Update heading
-                const headingMap = {
-                    processor: "Processors",
-                    "cpu-cooler": "CPU Coolers",
-                    motherboard: "Motherboards",
-                    "graphics-card": "Graphics Cards",
-                    "solid-state-drive": "Solid State Drives",
-                    "hard-disk-drive": "Hard Disk Drives",
-                    ram: "RAM",
-                    "power-supply": "Power Supplies",
-                    case: "Cases",
-                };
-                $('#componentHeading').text(headingMap[selectedComponent] || "Components");
+            // Update component heading
+            const headingMap = {
+                processor: "Processors",
+                'cpu-cooler': "CPU Coolers",
+                motherboard: "Motherboards",
+                'graphics-card': "Graphics Cards",
+                'solid-state-drive': "Solid State Drives",
+                'hard-disk-drive': "Hard Disk Drives",
+                ram: "RAM",
+                'power-supply': "Power Supplies",
+                case: "Cases",
+            };
 
-                // Fetch products
-                $.ajax({
-                    url: `<?= base_url(); ?>products/fetch_products_by_category/${selectedCategory}`,
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(response) {
-                        const productList = $('#productList');
-                        productList.empty();
+            $('#componentHeading').text(headingMap[selectedComponent] || "Components");
 
-                        if (response.status === 'success') {
-                            const products = response.data.product;
-                            products.forEach(product => {
-                                const productCard = `
-                            <div class="card bg-dark text-white border-secondary mb-3" data-component="${selectedComponent}">
-                                <div class="card-header bg-success text-white">Sale</div>
-                                <div class="card-body">
-                                    <div class="d-flex gap-3">
-                                        <img src="<?= base_url() ?>public/userdata/img/${product.image_path}" class="rounded" style="width: 80px; height: 80px;">
-                                        <div class="flex-grow-1">
-                                            <div class="row">
-                                                <div class="col-7">
-                                                    <h5 class="card-title">${product.product_name}</h5>
+            // Fetch and display products for the selected category
+            $.ajax({
+                url: `<?= base_url(); ?>products/fetch_products_by_category/${selectedCategory}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    const productList = $('#productList');
+                    productList.empty();
+
+                    if (response.status === 'success') {
+                        const products = response.data.product;
+                        products.forEach(product => {
+                            const productCard = `
+                                <div class="card bg-dark text-white border-secondary mb-3" data-component="${selectedComponent}">
+                                    <div class="card-header bg-success text-white">Sale</div>
+                                    <div class="card-body">
+                                        <div class="d-flex gap-3">
+                                            <img src="<?= base_url() ?>public/userdata/img/${product.image_path}" class="rounded" style="width: 80px; height: 80px;">
+                                            <div class="flex-grow-1">
+                                                <h5 class="card-title">${product.product_name}</h5>
+                                                <p class="card-text text-secondary text-capitalize">Performance: ${product.performance}</p>
+                                                <p class="card-text"><strong>Available:</strong> ${product.quantity} units</p>
+                                                <h6 class="text-success">Price: ₱${product.price}</h6>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <input type="number" min="1" max="${product.quantity}" value="1" class="form-control form-control-sm bg-dark text-white border-secondary quantity-input" style="width: 80px;">
+                                                    <button class="btn btn-outline-success btn-sm select-button" data-performance="${product.performance}"   data-product-id="${product.product_id}" data-product-name="${product.product_name}" data-price="${product.price}" data-quantity="${product.quantity}">SELECT</button>
                                                 </div>
-                                                <div class="col-5 text-end">  <!-- Adjusted to col-5 to align with col-7 -->
-                                                    <p class="card-text text-secondary text-capitalize">Performance: ${product.performance}</p>
-                                                </div>
-                                            </div>
-                                            <p class="card-text mb-2">${product.description || ''}</p>
-                                            <p class="card-text"><strong>Available:</strong> ${product.quantity || 'N/A'} units</p>
-                                            <h6 class="text-success">Price: ${product.price || 'N/A'}</h6>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <input type="number" min="1" max="${product.quantity}" value="1" class="form-control form-control-sm bg-dark text-white border-secondary quantity-input" style="width: 80px;">
-                                                <button class="btn btn-outline-success btn-sm select-button" data-product-name="${product.product_name}" data-price="${product.price}" data-quantity="${product.quantity}" data-product-id="${product.product_id}">SELECT</button>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        `;
-                                productList.append(productCard);
-                            });
-                        } else {
-                            productList.html('<p class="text-danger">No products found for this category.</p>');
-                        }
-                    },
-                    error: function() {
-                        $('#productList').html('<p class="text-danger">Failed to fetch products. Please try again later.</p>');
+                                </div>`;
+                            productList.append(productCard);
+                        });
+                    } else {
+                        productList.html('<p class="text-danger">No products found for this category.</p>');
                     }
-                });
+                },
+                error: function() {
+                    $('#productList').html('<p class="text-danger">Failed to fetch products. Please try again later.</p>');
+                }
             });
+        });
 
             // Function to validate the cart
 
 
+            // Adding item to the cart
             $('#productList').on('click', '.select-button', function() {
                 const card = $(this).closest('.card');
                 const component = card.data('component');
                 const imageSrc = card.find('img').attr('src');
+                const productId = $(this).data('product-id');
                 const productName = $(this).data('product-name');
                 const pricePerUnit = parseFloat($(this).data('price'));
                 const availableQuantity = parseInt($(this).data('quantity'));
                 const selectedQuantity = parseInt(card.find('.quantity-input').val());
-                const productId = $(this).data('product-id'); // Use product ID for cart key
-                const componentType = componentMapping[component];
+                const componentType = componentMapping[card.data('component')]; // Map the component to the correct key
                 const performanceLabel = card.find('.card-text.text-capitalize').text().split(':')[1].trim().toLowerCase();
                 const performanceValue = performanceMap[performanceLabel] || 0;
+
+                if (componentType && performanceValue) {
+                    performanceCategories[componentType] = performanceValue; // Update the performance for the component
+                    selectedComponents[componentType] = true; // Track selected components
+                }
+
+                updateBuildStats();
+                updateProgressBar();
 
                 if (selectedQuantity > availableQuantity) {
                     alert('Selected quantity exceeds available stock.');
@@ -468,86 +464,74 @@
                     return;
                 }
 
-                // Update performance categories and selected components
-                if (componentType && performanceValue) {
-                    performanceCategories[componentType] = performanceValue;
-                    selectedComponents[componentType] = true;
-                }
-
-                // Calculate total price
                 const totalPrice = pricePerUnit * selectedQuantity;
 
-                // Update cart
-                if (cart[productId]) {
-                    cart[productId].productName = productName
-                    cart[productId].quantity += selectedQuantity;
-                    cart[productId].totalPrice = cart[productId].quantity * pricePerUnit;
+                // If product already exists in the cart, update the quantity and total price
+                if (cart[productName]) {
+                    cart[productId] = productId;
+                    cart[productName].quantity += selectedQuantity; // Increase quantity
+                    cart[productName].totalPrice = cart[productName].quantity * pricePerUnit; // Recalculate total price based on updated quantity
                 } else {
-                    cart[productId] = {
-                        productName: productName,
+                    // If product doesn't exist in the cart, add it
+                    cart[productName] = {
+                        productId: productId,
                         quantity: selectedQuantity,
                         price: pricePerUnit,
                         totalPrice: totalPrice
                     };
                 }
 
-                // Update UI
+                // Update the cart summary
                 updateCartSummary();
                 updateProgressBar();
 
-                // Update the button content
+                // Find the button for this product in the component list
                 const button = $(`.list-group-item[data-component="${component}"]`);
                 if (button.length) {
                     if (!button.data('originalContent')) {
                         button.data('originalContent', button.html());
                     }
 
+                    // Update the button content with the new quantity and total price
                     button.html(`
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center">
                     <img src="${imageSrc}" alt="${productName}" class="me-3" style="width: 30px; height: 30px; border-radius: 50%;">
                     <div>
                         <h6 class="mb-0">${productName}</h6>
-                        <small class="text-success">${cart[productId].quantity} unit(s) | ₱${cart[productId].totalPrice.toFixed(2)}</small>
+                        <small class="text-success">${cart[productName].quantity} unit(s) | ₱${cart[productName].totalPrice.toFixed(2)}</small>
                     </div>
                 </div>
-                      <button class="btn btn-sm btn-danger remove-selection" data-product-id="${productId}">
-            <i class="bi bi-x"></i>
-        </button>
+                <button class="btn btn-sm btn-danger remove-selection"><i class="bi bi-x"></i></button>
             </div>
         `).removeClass('border-dark').addClass('border-success bg-dark text-white');
                 }
             });
-            // Remove item from cart
+
             // Remove item from cart
             $('.list-group').on('click', '.remove-selection', function(e) {
                 e.stopPropagation();
-
                 const button = $(this).closest('.list-group-item-action');
-                const productId = $(this).data('product-id'); // Use data-product-id from the button
+                const productName = button.find('h6').text().trim();
+                const componentType = componentMapping[button.data('component')];
 
-                // Check if the product exists in the cart
-                if (cart[productId]) {
-                    // Remove the product from the cart
-                    delete cart[productId];
-
-                    // Update cart summary and progress bar after removal
+                if (cart[productName]) {
+                    // Remove item from cart
+                    delete cart[productName];
+                    // Update cart summary
                     updateCartSummary();
                     updateProgressBar();
                 }
 
-                // Reset performance categories for the component type
-                const componentType = button.data('component');
                 if (componentType) {
                     performanceCategories[componentType] = 0; // Reset the performance value
-                    delete selectedComponents[componentType]; // Remove from selected components
+                    delete selectedComponents[componentType];
                 }
 
-                // Update build stats and progress bar to reflect the changes
                 updateBuildStats();
                 updateProgressBar();
 
-                // Reset the button content to the original state
+                // Reset the button content back to original state
                 const originalContent = button.data('originalContent');
                 if (originalContent) {
                     button.html(originalContent)
@@ -555,9 +539,6 @@
                         .addClass('border-dark bg-dark text-white');
                     button.data('originalContent', null);
                 }
-
-                // Optionally, if you need to re-render the UI, consider removing the product card
-                button.closest('.card').remove();
             });
 
 
@@ -567,69 +548,71 @@
             updateBuildStats();
             updateProgressBar();
 
+
             $('#addToCartBtn').on('click', function() {
-    const requiredComponents = ['cpu', 'motherboard', 'ssd', 'hdd', 'ram', 'psu', 'case'];
-    const missingComponents = [];
+                const requiredComponents = ['cpu', 'motherboard', 'ssd', 'hdd', 'ram', 'psu', 'case'];
+                const missingComponents = [];
 
-    requiredComponents.forEach(component => {
-        if (!selectedComponents[component]) {
-            missingComponents.push(component);
-        }
-    });
+                requiredComponents.forEach(component => {
+                    if (!selectedComponents[component]) {
+                        missingComponents.push(component);
+                    }
+                });
 
-    if (missingComponents.length > 0) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Missing Components',
-            text: 'Please select the following components: ' + missingComponents.map(component => component.charAt(0).toUpperCase() + component.slice(1)).join(', '),
-            confirmButtonText: 'OK'
-        });
-    } else {
-        // Prepare the cart data for backend
-        const cartArray = Object.entries(cart).map(([productId, item]) => ({
-    productId: parseInt(productId), // Convert productId to integer
-    productName: item.productName,
-    quantity: item.quantity
-}));
-        $.ajax({
-    url: "<?= site_url('build/add') ?>",
-    type: 'POST',
-    contentType: 'application/json', 
-    dataType: "json",
-    data:  JSON.stringify({ cart: cartArray }),
-    success: function(response) {
-        if (response.status === 'success') {
-    
-            Swal.fire({
-                icon: 'success',
-                title: 'Build Creation Success',
-                text: response.message,
-                confirmButtonText: 'OK',
+                if (missingComponents.length > 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Missing Components',
+                        text: 'Please select the following components: ' + missingComponents.map(component => component.charAt(0).toUpperCase() + component.slice(1)).join(', '),
+                        confirmButtonText: 'OK'
+                    });
+                } else {
+                    // Prepare the cart data for backend
+                    const cartArray = Object.entries(cart).map(([productName, item]) => ({
+            productId: parseInt(item.productId) || null, // Ensure productId is parsed correctly
+            productName: productName, // Use the correct productName
+            quantity: parseInt(item.quantity) // Ensure quantity is an integer
+        }))
+                    console.log(cartArray);
+                    $.ajax({
+                        url: "<?= site_url('build/add') ?>",
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: "json",
+                        data: JSON.stringify({
+                            cart: cartArray
+                        }),
+                        success: function(response) {
+                            if (response.status === 'success') {
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Build Creation Success',
+                                    text: response.message,
+                                    confirmButtonText: 'OK',
+                                });
+                            } else if (response.status === 'error') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Build Validation Failed',
+                                    text: response.message,
+                                    confirmButtonText: 'OK',
+                                });
+                            }
+
+                        },
+                        error: function(xhr) {
+                            console.error(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Something went wrong on the server!',
+                                confirmButtonText: 'OK',
+                            });
+                        },
+                    });
+                }
             });
-        } else if(response.status === 'error') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Build Validation Failed',
-                text: response.message,
-                confirmButtonText: 'OK',
-            });
-        }
-       
-    },
-    error: function(xhr) {
-        console.error(xhr.responseText);
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Something went wrong on the server!',
-            confirmButtonText: 'OK',
-        });
-    },
-});
-    }
-});
-
-
         });
     </script>
 

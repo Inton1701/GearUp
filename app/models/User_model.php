@@ -43,7 +43,7 @@ class User_model extends Model {
         return $this->db->table('users')->where('user_id', $user_id)->update($data);
 
     }
-
+ 
 
 
 }   

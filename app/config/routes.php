@@ -118,6 +118,15 @@ $router->group('admin/user', function () use ($router) {
     $router->match('delete/{id}', 'User::delete_user', ['POST', 'GET']);
 });
 
+$router->group('admin/order', function () use ($router) {
+    $router->get('', 'Orders::order');
+    $router->match('add', 'Orders::add_order', ['POST', 'GET']);
+    $router->get('list', 'Orders::order_list');
+    $router->match('get/{id}', 'Orders::get_order', ['POST', 'GET']);
+    $router->post('update', 'Orders::update_order');
+    $router->match('delete/{id}', 'Orders::delete_order', ['POST', 'GET']);
+});
+
 $router->group('user', function () use ($router) {
     $router->get('', 'User::user');
     $router->match('register', 'User::register_user', ['POST', 'GET']);

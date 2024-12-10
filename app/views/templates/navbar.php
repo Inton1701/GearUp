@@ -177,12 +177,6 @@
                       ><i data-feather="tag"></i><span>Brands</span></a
                     >
                   </li>
-                  <li>
-                    <a href="manage-stocks.html"
-                      ><i data-feather="package"></i
-                      ><span>Manage Stock</span></a
-                    >
-                  </li>
                 </ul>
               </li>
 
@@ -206,7 +200,7 @@
                     >
                   </li>
                   <li>
-                    <a href="quotation-list.html"
+                    <a href="/admin/order/"
                       ><i data-feather="save"></i><span>Orders</span></a
                     >
                   </li>
