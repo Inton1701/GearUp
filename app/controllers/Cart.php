@@ -24,6 +24,9 @@ class Cart extends Controller
         }
     }
 
+
+
+
     public function view_cart()
     {
         if ($this->io->is_ajax()) {
@@ -94,6 +97,8 @@ class Cart extends Controller
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Failed to remove item from cart.']);
             }
+
+            
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid request.']);
         }

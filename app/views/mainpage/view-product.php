@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= base_url(); ?>public/maincss/view.css" />
+    <script src="<?= base_url(); ?>public/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
     <title><?= htmlspecialchars($product['product_name']); ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <?php include APP_DIR . 'views/templates/main_nav.php'; ?>
@@ -21,13 +23,7 @@
     <div class="product-info">
         <h1><?= htmlspecialchars($product['product_name']); ?></h1>
         <div class="price">₱<?= number_format($product['price'], 2); ?> PHP</div>
-        <div class="stock-status">
-            <?= $product['quantity'] > 0 ? "🔥 HURRY! ONLY {$product['quantity']} LEFT IN STOCK" : "Out of Stock"; ?>
-        </div>
-        <div class="quantity-selector">
-            <input type="number" value="1" min="1" max="<?= $product['quantity']; ?>" class="quantity-input">
-        </div>
-        <button class="add-to-cart">ADD TO CART</button>
+        <button class="add-to-cart" data-id="<?= $product['product_id']; ?>">ADD TO CART</button>
     </div>
 </main>
 
@@ -112,6 +108,29 @@
       function viewProduct(productId) {
     window.location.href = `<?= site_url('admin/products/view/'); ?>${productId}`;
 }
+$(document).on('click', '.add-to-cart', function(event) {
+        const productId = $(this).data('id');
+        $.ajax({
+            url: "<?= site_url('cart'); ?>",
+            type: "POST",
+            data: {
+                product_id: productId
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response.status === 'success') {
+                    Swal.fire('Success', 'Product added to cart!', 'success');
+                } else {
+                    Swal.fire('Error', response.message || 'Failed to add product to cart.', 'error');
+                }
+            },
+            error: function(xhr) {
+                console.error('AJAX Error:', xhr.responseText);
+                Swal.fire('Error', 'An unexpected error occurred.', 'error');
+            }
+        });
+    });
+
 </script>
 </body>
 </html>
