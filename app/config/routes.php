@@ -72,6 +72,8 @@ $router->post('/profile/add_address', 'Profile::add_address');
 $router->get('/profile/get_user_addresses', 'Profile::get_user_addresses');
 
 
+
+
 $router->group('admin/products', function () use ($router) {
     $router->get('', 'Products::getList');
     $router->get('add-products', 'Products::add_product');
@@ -81,9 +83,7 @@ $router->group('admin/products', function () use ($router) {
     $router->match('get/{id}', 'Products::get_product', ['POST', 'GET']);
     $router->post('update', 'Products::update_product');
     $router->match('delete/{id}', 'Products::delete_product', ['POST', 'GET']);
-    $router->get('view/{id}', 'Products::view_product'); 
-    $router->get('view/{id}', 'Products::viewProduct');
-
+    $router->get('view/{id}', 'Products::view_product');
 });
 
 $router->group('admin/category', function () use ($router) {

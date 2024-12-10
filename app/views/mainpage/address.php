@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GearUP - User Profile</title>
     <?php include APP_DIR . 'views/templates/mainheader.php'; ?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -89,6 +90,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <!-- Bootstrap JavaScript -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 </body>
@@ -136,13 +138,16 @@
 
                         addresses.forEach(function(address) {
                             const addressHTML = `
-                            <li class="address-item">
+                            <li class="address-item d-flex justify-content-between align-items-center">
                                 <div class="address-details">
                                     <span><strong>House No:</strong> ${address.house_no}</span>
                                     <span><strong>Street:</strong> ${address.street}</span>
                                     <span><strong>City:</strong> ${address.City}</span>
                                     <span><strong>Province:</strong> ${address.Province}</span>
                                 </div>
+                                <button class="btn btn-danger btn-sm delete-address" data-id="${address.address_id}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
                             </li>
                         `;
                             addressList.append(addressHTML);
@@ -158,12 +163,7 @@
             });
         }
 
-        // Show modal on button click
-        $('#add-address-btn').click(function() {
-            $('#addressModal').modal('show');
-        });
-
-        // Save address on modal submission
+        // Add address success message with SweetAlert
         $('#save-address-btn').click(function() {
             const addressData = {
                 house_no: $('#house_no').val(),
@@ -173,31 +173,77 @@
             };
 
             $.ajax({
-                url: '/profile/add_address', // Backend endpoint for adding addresses
+                url: '/profile/add_address',
                 method: 'POST',
                 dataType: 'json',
                 data: addressData,
                 success: function(response) {
                     if (response.success) {
-                        alert('Address added successfully!');
-                        $('#addressModal').modal('hide');
-                        location.reload(); // Refresh to show the updated address list
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Address added successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            $('#addressModal').modal('hide');
+                            loadAddresses(); // Reload addresses
+                        });
                     } else {
-                        alert(response.message || 'Failed to add address.');
+                        Swal.fire('Error', response.message || 'Failed to add address.', 'error');
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error Details:', xhr.responseText); // Log response for debugging
-                    alert('An error occurred while adding the address.');
+                    console.error('Error Details:', xhr.responseText);
+                    Swal.fire('Error', 'An error occurred while adding the address.', 'error');
                 }
             });
         });
+
+        $(document).on('click', '.delete-address', function() {
+            const addressId = $(this).data('id');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this address!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/profile/delete_address',
+                        method: 'POST',
+                        data: {
+                            address_id: addressId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your address has been deleted.',
+                                    'success'
+                                );
+                                loadAddresses(); // Reload the addresses
+                            } else {
+                                Swal.fire('Error', response.message || 'Failed to delete address.', 'error');
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error Details:', xhr.responseText);
+                            Swal.fire('Error', 'An error occurred while deleting the address.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+
 
         // Initial load
         loadAddresses();
     });
 </script>
-
-
 
 </html>

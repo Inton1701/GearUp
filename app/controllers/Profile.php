@@ -104,4 +104,31 @@ class Profile extends Controller
             echo json_encode(['success' => false, 'message' => 'No addresses found']);
         }
     }
+
+    public function delete_address()
+    {
+        if (!$this->io->is_ajax()) {
+            show_error('Access Denied', 403);
+        }
+
+        $userId = $this->session->userdata('user_id');
+        if (!$userId) {
+            echo json_encode(['success' => false, 'message' => 'User not logged in']);
+            return;
+        }
+
+        $addressId = $this->io->post('address_id');
+        if (!$addressId) {
+            echo json_encode(['success' => false, 'message' => 'Address ID is required']);
+            return;
+        }
+
+        $result = $this->profile_model->delete_address($userId, $addressId);
+
+        if ($result) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to delete address']);
+        }
+    }
 }

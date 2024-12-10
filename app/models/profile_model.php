@@ -31,4 +31,12 @@ class Profile_model extends Model
             ->where('user_id', $userId)
             ->get_all(); // Assuming `get_all()` returns an array of results
     }
+
+    public function delete_address($userId, $addressId)
+    {
+        return $this->db->table('address')
+            ->where('user_id', $userId)
+            ->where('address_id', $addressId)
+            ->delete();
+    }
 }
