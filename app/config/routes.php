@@ -65,6 +65,7 @@ $router->get('/admin', 'Dashboard::dashboard');
 $router->get('/shop', 'Mainpage::shop');
 $router->get('/contact', 'Mainpage::contact');
 $router->get('/home', 'Mainpage::home');
+$router->get('/home', 'Brand::index');
 $router->get('/build', 'Mainpage::build');
 $router->get('/view-product', 'Mainpage::view');
 

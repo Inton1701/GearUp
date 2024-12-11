@@ -20,9 +20,15 @@ class Mainpage extends Controller
         $this->call->view('mainpage/contact');
     }
 
-    public function home()
-    {
-        $this->call->view('mainpage/home');
+    public function home() {
+        // Load the Brand_model
+        $this->call->model('Brand_model');
+
+        // Fetch brands from the database
+        $brands = $this->Brand_model->get_brands();
+
+        // Pass the brands data to the view
+        $this->call->view('mainpage/home', ['brands' => $brands]);
     }
 
     public function build()
